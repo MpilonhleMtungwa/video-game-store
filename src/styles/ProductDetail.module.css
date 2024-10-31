@@ -1,0 +1,89 @@
+.productDetailContainer {
+  max-width: 1200px;
+  margin: 0 auto;
+  color: #fff;
+}
+
+.gameTitle {
+  font-size: 2rem;
+  font-weight: bold;
+  margin-top: 20px;
+}
+
+.gameHeader {
+  display: flex;
+  gap: 10px;
+  font-size: 1rem;
+  color: #8f8f8f;
+}
+
+.highlight {
+  display: flex;
+  align-items: center;
+  padding: 0.2rem 0.4rem;
+  background-color: #333;
+  border-radius: 4px;
+}
+
+.contentContainer {
+  display: flex;
+  margin-top: 20px;
+}
+
+.mediaSection {
+  flex: 2;
+  margin-right: 20px;
+}
+
+.gameTrailer,
+.gameImage {
+  width: 100%;
+  border-radius: 8px;
+}
+
+.purchaseSection {
+  flex: 1;
+  background-color: #222;
+  padding: 20px;
+  border-radius: 8px;
+}
+
+.gamePrice {
+  font-size: 1.8rem;
+  color: #4caf50;
+  margin-bottom: 10px;
+}
+
+.buyButton {
+  width: 100%;
+  padding: 10px;
+  font-size: 1.2rem;
+  background-color: #007acc;
+  color: #fff;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+}
+
+.tabs {
+  display: flex;
+  margin-top: 20px;
+}
+
+.tabButton {
+  padding: 10px 20px;
+  background: #333;
+  border: none;
+  color: #fff;
+  cursor: pointer;
+  flex: 1;
+  font-size: 1rem;
+}
+
+.tabContent {
+  padding: 20px;
+  background: #222;
+  border-radius: 8px;
+  margin-top: 10px;
+  color: #ddd;
+}
