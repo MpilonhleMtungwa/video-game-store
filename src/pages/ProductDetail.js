@@ -2,35 +2,38 @@ import React, { useState, useEffect } from "react";
 import "./ProductDetail.module.css";
 
 const ProductDetail = ({ gameId }) => {
-  const [game, setGame] = useState(null);
+  const [game, setGame] = useState({});
 
   useEffect(() => {
     const fetchGameDetails = async () => {
-        try {
-            const rawgResponse = await fetch(`https://api.rawg.io/api/games/${gameId}?key=YOUR_RAWG_API_KEY`);
-            const rawgData = await rawgResponse.json();
+      try {
+        const rawgResponse = await fetch(
+          `https://api.rawg.io/api/games/${gameId}?key=YOUR_RAWG_API_KEY`
+        );
+        const rawgData = await rawgResponse.json();
 
-            // Fetch pricing from Epic Games or another source
-            const epicResponse = await fetch(`https://epic-games-store-api.com/api/pricing/${gameId}`);
-            const epicData = await epicResponse.json();
+        // Fetch pricing from Epic Games or another source
+        const epicResponse = await fetch(
+          `https://epic-games-store-api.com/api/pricing/${gameId}`
+        );
+        const epicData = await epicResponse.json();
 
-            // Combine RAWG and pricing data
-            setGame({
-                title: rawgData.name,
-                description: rawgData.description,
-                imageUrl: rawgData.background_image,
-                trailerUrl: rawgData.clip?.clip,
-                rating: rawgData.rating,
-                price: epicData.price || 'N/A',  // fallback if price isn’t available
-                ...
-            });
-        } catch (error) {
-            console.error("Failed to fetch game details", error);
-        }
+        // Combine RAWG and pricing data
+        setGame({
+          title: rawgData.name,
+          description: rawgData.description,
+          imageUrl: rawgData.background_image,
+          trailerUrl: rawgData.clip?.clip,
+          rating: rawgData.rating,
+          price: epicData.price || "N/A",
+        });
+      } catch (error) {
+        console.error("Failed to fetch game details", error);
+      }
     };
 
     fetchGameDetails();
-}, [gameId]);
+  }, [gameId]);
 
   if (!game) return <div>Loading...</div>;
 
