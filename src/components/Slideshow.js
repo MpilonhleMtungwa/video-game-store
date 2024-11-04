@@ -1,8 +1,8 @@
-import React from "react";
 import Slider from "react-slick";
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
-import styles from "./Slideshow.module.css";
+import styles from "../styles/Slideshow.module.css";
+import React, { useState } from "react";
 
 const Slideshow = ({ games }) => {
   const [currentSlide, setCurrentSlide] = useState(0);

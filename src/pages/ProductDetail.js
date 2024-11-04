@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import "./ProductDetail.module.css";
+import styles from "../styles/ProductDetail.module.css";
 
 const ProductDetail = ({ gameId }) => {
   const [game, setGame] = useState({});

@@ -1,19 +1,45 @@
 import React from "react";
-import styles from "./ProductCard.module.css";
+import styles from "../styles/ProductCard.module.css";
 
-const ProductCard = ({ imageUrl, title, price, description, onAddToCart }) => {
+const ProductCard = ({ game = {} }) => {
+  // Destructure properties from the game object
+  const {
+    name,
+    background_image,
+    price,
+    category, // E.g., "Base Game" or "Edition"
+    discount, // Discount percentage, if available
+    priceBeforeDiscount, // Original price, if discounted
+  } = game;
+
   return (
-    <div className={styles.productCard}>
-      <img src={imageUrl} alt={title} className={styles.productImage} />
-      <div className={styles.productInfo}>
-        <p className={styles.productDescription}>{description}</p>
-        <h3 className={styles.productTitle}>{title}</h3>
-        <div className={styles.productFooter}>
-          <p className={styles.productPrice}>ZAR {price}</p>
-          <button className={styles.addToCartBtn} onClick={onAddToCart}>
-            Add to Cart
-          </button>
-        </div>
+    <div className={styles.cardContainer}>
+      {/* Game Image */}
+      <div className={styles.imageContainer}>
+        <img src={background_image} alt={name} className={styles.gameImage} />
+      </div>
+
+      {/* Category (e.g., Base Game, Edition) */}
+      <div className={styles.category}>{category}</div>
+
+      {/* Game Title */}
+      <h3 className={styles.title}>{name}</h3>
+
+      {/* Price Section */}
+      <div className={styles.priceSection}>
+        {discount && priceBeforeDiscount ? (
+          <>
+            <span className={styles.discount}>{discount}%</span>
+            <span className={styles.priceBeforeDiscount}>
+              ZAR {priceBeforeDiscount}
+            </span>
+            <span className={styles.price}>Free</span>
+          </>
+        ) : (
+          <span className={styles.price}>
+            {price ? `ZAR ${price}` : "Free"}
+          </span>
+        )}
       </div>
     </div>
   );

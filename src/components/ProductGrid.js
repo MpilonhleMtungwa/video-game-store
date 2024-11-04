@@ -1,18 +1,12 @@
 import React from "react";
 import ProductCard from "./ProductCard";
-import styles from "./ProductGrid.module.css";
+import styles from "../styles/ProductGrid.module.css";
 
-const ProductGrid = ({ products }) => {
+const ProductGrid = ({ games }) => {
   return (
-    <div className={styles.productgrid}>
-      {products.map((product) => (
-        <ProductCard
-          key={product.id}
-          imageUrl={product.imageUrl}
-          title={product.title}
-          price={product.price}
-          description={product.description}
-        />
+    <div className={styles.gridContainer}>
+      {games?.map((game, index) => (
+        <ProductCard key={index} game={game} />
       ))}
     </div>
   );
