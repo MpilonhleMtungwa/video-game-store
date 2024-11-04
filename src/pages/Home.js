@@ -3,6 +3,7 @@ import { fetchGameDetails } from "../services/rawgService";
 import { fetchGamePrices } from "../services/cheapSharkService";
 import Slideshow from "../components/Slideshow";
 import ProductGrid from "../components/ProductGrid";
+import Sidebar from "../components/sideBar";
 import styles from "../styles/Homepage.module.css";
 import ProductCard from "../components/ProductCard";
 
@@ -14,7 +15,23 @@ const HomePage = () => {
   const [shooterGames, setShooterGames] = useState([]);
   const [racingGames, setRacingGames] = useState([]);
   const [adventureGames, setAdventureGames] = useState([]);
+  const [filteredGames, setFilteredGames] = useState([]);
   const [loading, setLoading] = useState(true);
+
+  const handlePlatformSelect = async (platform) => {
+    const filteredGames = await fetchGameDetails({ platform });
+    setFilteredGames(filteredGames);
+  };
+
+  const handleGenreSelect = async (genre) => {
+    const filteredGames = await fetchGameDetails({ genre });
+    setFilteredGames(filteredGames);
+  };
+
+  const handleLoadAll = async () => {
+    const allGames = await fetchGameDetails();
+    setFilteredGames(allGames);
+  };
 
   useEffect(() => {
     const loadGames = async () => {
@@ -55,27 +72,34 @@ const HomePage = () => {
   if (loading) return <div>Loading games...</div>;
 
   return (
-    <div className={styles.homepageContainer}>
-      <h2>Popular</h2>
-      <ProductGrid games={mostPopularGames} />
+    <div className={styles.mainContainer}>
+      <Sidebar
+        onPlatformSelect={handlePlatformSelect}
+        onGenreSelect={handleGenreSelect}
+        onLoadAll={handleLoadAll}
+      />
+      <div className={styles.homepageContainer}>
+        <h2>Popular</h2>
+        <ProductGrid games={mostPopularGames} />
 
-      <h2>Recent</h2>
-      <ProductGrid games={recentlyUpdatedGames} />
+        <h2>Recent</h2>
+        <ProductGrid games={recentlyUpdatedGames} />
 
-      <h2>Action</h2>
-      <ProductGrid games={actionGames} />
+        <h2>Action</h2>
+        <ProductGrid games={actionGames} />
 
-      <h2>Puzzle</h2>
-      <ProductGrid games={puzzleGames} />
+        <h2>Puzzle</h2>
+        <ProductGrid games={puzzleGames} />
 
-      <h2>Shooter</h2>
-      <ProductGrid games={shooterGames} />
+        <h2>Shooter</h2>
+        <ProductGrid games={shooterGames} />
 
-      <h2>Racing</h2>
-      <ProductGrid games={racingGames} />
+        <h2>Racing</h2>
+        <ProductGrid games={racingGames} />
 
-      <h2>Adventure</h2>
-      <ProductGrid games={adventureGames} />
+        <h2>Adventure</h2>
+        <ProductGrid games={adventureGames} />
+      </div>
     </div>
   );
 };

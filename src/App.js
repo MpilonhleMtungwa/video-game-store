@@ -11,8 +11,8 @@ function App() {
   return (
     <BrowserRouter>
       <Routes>
-        <Route path="/home" element={<Home />} />
-        <Route path="/games" element={<ProductList />} />
+        <Route path="/" element={<Home />} />
+        <Route path="/game/:id" element={<ProductDetail />} />
       </Routes>
     </BrowserRouter>
   );

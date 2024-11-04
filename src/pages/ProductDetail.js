@@ -1,22 +1,29 @@
 import React, { useState, useEffect } from "react";
+import { useParams } from "react-router-dom";
 import styles from "../styles/ProductDetail.module.css";
 
-const ProductDetail = ({ gameId }) => {
-  const [game, setGame] = useState({});
+const ProductDetail = () => {
+  const { id } = useParams(); // use id from useParams
+  const [game, setGame] = useState(null);
+  const [price, setPrice] = useState(null); // New state to store price data
 
   useEffect(() => {
     const fetchGameDetails = async () => {
       try {
+        // Fetch basic game details from RAWG
         const rawgResponse = await fetch(
-          `https://api.rawg.io/api/games/${gameId}?key=YOUR_RAWG_API_KEY`
+          `https://api.rawg.io/api/games/${id}?key=${process.env.REACT_APP_RAWG_API_KEY}`
         );
         const rawgData = await rawgResponse.json();
 
-        // Fetch pricing from Epic Games or another source
-        const epicResponse = await fetch(
-          `https://epic-games-store-api.com/api/pricing/${gameId}`
+        // Fetch pricing data from CheapShark based on the game's title
+        const cheapSharkResponse = await fetch(
+          `https://www.cheapshark.com/api/1.0/deals?title=${rawgData.name}`
         );
-        const epicData = await epicResponse.json();
+        const cheapSharkData = await cheapSharkResponse.json();
+
+        // Assuming you want the lowest price deal from the CheapShark response
+        const lowestPriceDeal = cheapSharkData[0]?.salePrice || "N/A";
 
         // Combine RAWG and pricing data
         setGame({
@@ -25,50 +32,58 @@ const ProductDetail = ({ gameId }) => {
           imageUrl: rawgData.background_image,
           trailerUrl: rawgData.clip?.clip,
           rating: rawgData.rating,
-          price: epicData.price || "N/A",
         });
+
+        setPrice(lowestPriceDeal); // Set the price data
       } catch (error) {
         console.error("Failed to fetch game details", error);
       }
     };
 
     fetchGameDetails();
-  }, [gameId]);
+  }, [id]); // Pass id instead of gameId
 
   if (!game) return <div>Loading...</div>;
-
   return (
-    <div className="productDetailContainer">
-      <h1 className="gameTitle">{game.name}</h1>
-      <div className="gameHeader">
-        <span className="rating">⭐ {game.rating}</span>
-        <span className="highlight">Great for Beginners</span>
-        <span className="highlight">Great Boss Battles</span>
+    <div className={styles.productDetailContainer}>
+      <h1 className={styles.gameTitle}>{game.name}</h1>
+      <div className={styles.gameHeader}>
+        <span className={styles.rating}>⭐ {game.rating}</span>
+        <span className={styles.highlight}>Great for Beginners</span>
+        <span className={styles.highlight}>Great Boss Battles</span>
       </div>
 
-      <div className="contentContainer">
+      <div className={styles.contentContainer}>
         {/* Media Section */}
-        <div className="mediaSection">
+        <div className={styles.mediaSection}>
           {game.trailerUrl ? (
-            <video src={game.trailerUrl} controls className="gameTrailer" />
+            <video
+              src={game.trailerUrl}
+              controls
+              className={styles.gameTrailer}
+            />
           ) : (
-            <img src={game.imageUrl} alt={game.name} className="gameImage" />
+            <img
+              src={game.imageUrl}
+              alt={game.name}
+              className={styles.gameImage}
+            />
           )}
         </div>
 
         {/* Purchase Section */}
-        <div className="purchaseSection">
-          <p className="gamePrice">ZAR {game.price}</p>
-          <button className="buyButton">Buy Now</button>
+        <div className={styles.purchaseSection}>
+          <p className={styles.gamePrice}>ZAR {game.price}</p>
+          <button className={styles.buyButton}>Buy Now</button>
         </div>
       </div>
 
       {/* Tabs for Overview and Add-Ons */}
-      <div className="tabs">
-        <button className="tabButton">Overview</button>
-        <button className="tabButton">Add-Ons</button>
+      <div className={styles.tabs}>
+        <button className={styles.tabButton}>Overview</button>
+        <button className={styles.tabButton}>Add-Ons</button>
       </div>
-      <div className="tabContent">
+      <div className={styles.tabContent}>
         {/* This would dynamically show content based on the selected tab */}
         <p>{game.description}</p>
       </div>

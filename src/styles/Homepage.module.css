@@ -1,5 +1,15 @@
 .homepageContainer {
   padding: 20px;
+  flex: 1;
+}
+
+.mainContainer {
+  display: flex;
+}
+
+.sidebar {
+  width: 200px; /* Adjust width as needed */
+  /* additional styles */
 }
 
 .gameGrid {
