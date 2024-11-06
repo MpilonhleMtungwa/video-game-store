@@ -1,89 +1,165 @@
 .productDetailContainer {
-  max-width: 1200px;
-  margin: 0 auto;
-  color: #fff;
-}
-
-.gameTitle {
-  font-size: 2rem;
-  font-weight: bold;
-  margin-top: 20px;
-}
-
-.gameHeader {
   display: flex;
-  gap: 10px;
-  font-size: 1rem;
-  color: #8f8f8f;
-}
-
-.highlight {
-  display: flex;
-  align-items: center;
-  padding: 0.2rem 0.4rem;
-  background-color: #333;
-  border-radius: 4px;
-}
-
-.contentContainer {
-  display: flex;
-  margin-top: 20px;
+  flex-direction: row;
+  justify-content: space-between;
+  padding: 20px;
+  gap: 20px;
+  background-color: #f5f5f5;
 }
 
 .mediaSection {
   flex: 2;
-  margin-right: 20px;
-}
-
-.gameTrailer,
-.gameImage {
-  width: 100%;
+  position: relative;
+  background: #fff;
   border-radius: 8px;
-}
-
-.purchaseSection {
-  flex: 1;
-  background-color: #222;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
   padding: 20px;
+}
+
+.slideshowContainer {
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.gameImage,
+.gameVideo {
+  width: 100%;
+  height: auto;
   border-radius: 8px;
 }
 
-.gamePrice {
-  font-size: 1.8rem;
-  color: #4caf50;
-  margin-bottom: 10px;
+.prevButton,
+.nextButton {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  background-color: rgba(0, 0, 0, 0.6);
+  color: white;
+  border: none;
+  border-radius: 50%;
+  width: 40px;
+  height: 40px;
+  font-size: 20px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
 }
 
-.buyButton {
-  width: 100%;
-  padding: 10px;
-  font-size: 1.2rem;
-  background-color: #007acc;
-  color: #fff;
-  border: none;
-  border-radius: 5px;
-  cursor: pointer;
+.prevButton:hover,
+.nextButton:hover {
+  background-color: rgba(0, 0, 0, 0.8);
+}
+
+.prevButton {
+  left: 10px;
+}
+
+.nextButton {
+  right: 10px;
 }
 
 .tabs {
   display: flex;
+  justify-content: center;
   margin-top: 20px;
 }
 
 .tabButton {
-  padding: 10px 20px;
-  background: #333;
-  border: none;
-  color: #fff;
-  cursor: pointer;
   flex: 1;
-  font-size: 1rem;
+  padding: 10px;
+  background: #e0e0e0;
+  border: none;
+  color: #333;
+  cursor: pointer;
+  font-size: 16px;
+  transition: background-color 0.3s ease;
+}
+
+.tabButton:hover {
+  background-color: #ccc;
+}
+
+.tabButton:focus {
+  background-color: #d1d1d1;
 }
 
 .tabContent {
+  margin-top: 20px;
+  font-size: 14px;
+  line-height: 1.6;
+  color: #666;
+}
+
+.purchaseSection {
+  flex: 1;
+  background: #fff;
   padding: 20px;
-  background: #222;
   border-radius: 8px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+}
+
+.gameTitle {
+  font-size: 24px;
+  font-weight: bold;
+  color: #333;
+  margin-bottom: 10px;
+}
+
+.gameHeader {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 15px;
+}
+
+.highlight {
+  font-size: 18px;
+  font-weight: bold;
+  color: #5c6bc0;
+}
+
+.gamePrice {
+  font-size: 18px;
+  font-weight: bold;
+  color: #d32f2f;
+}
+
+.buyButton,
+.addButton {
+  display: block;
+  width: 100%;
+  padding: 12px;
   margin-top: 10px;
-  color: #ddd;
+  font-size: 16px;
+  font-weight: bold;
+  color: #fff;
+  background-color: #d32f2f;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+.buyButton:hover,
+.addButton:hover {
+  background-color: #b71c1c;
+}
+
+.addButton {
+  background-color: #5c6bc0;
+}
+
+.addButton:hover {
+  background-color: #3f51b5;
+}
+
+.gameDetails {
+  margin-top: 20px;
+  font-size: 14px;
+  color: #444;
+}
+
+.gameDetails p {
+  margin: 4px 0;
 }
