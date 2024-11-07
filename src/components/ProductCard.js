@@ -14,7 +14,7 @@ const ProductCard = ({ game }) => {
   } = game;
 
   return (
-    <Link to={`/game/${id}`} className={styles.cardLink}>
+    <Link to={`/game/${game.id}`} className={styles.cardLink}>
       <div className={styles.cardContainer}>
         <div className={styles.imageContainer}>
           <img src={background_image} alt={name} className={styles.gameImage} />

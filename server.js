@@ -7,6 +7,17 @@ const app = express();
 app.use(cors());
 const PORT = process.env.PORT || 5000;
 
+app.get("/api/game-details", async (req, res) => {
+  try {
+    const response = await fetch(`${proxyUrl}${apiUrl}`);
+    const data = await response.json();
+    res.json(data);
+  } catch (error) {
+    console.error("Error fetching data:", error);
+    res.status(500).json({ error: "Failed to fetch data" });
+  }
+});
+
 // RAWG API endpoint
 app.get("/api/games", async (req, res) => {
   try {

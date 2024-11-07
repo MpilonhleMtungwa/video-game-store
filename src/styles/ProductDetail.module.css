@@ -1,16 +1,49 @@
+.pageContainer {
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+}
+
+.gameInfoSection {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 16px;
+  background-color: #2c2f33;
+  color: white;
+}
+
+.gameTitle {
+  color: white;
+  font-size: 1.9rem;
+  font-weight: bold;
+  margin-bottom: 8px;
+}
+
+.gameTags {
+  display: flex;
+  gap: 16px;
+}
+
+.reviewScore,
+.genres {
+  font-size: 1rem;
+  color: #ddd;
+}
+
 .productDetailContainer {
   display: flex;
   flex-direction: row;
   justify-content: space-between;
   padding: 20px;
   gap: 20px;
-  background-color: #f5f5f5;
+  background-color: black;
 }
 
 .mediaSection {
   flex: 2;
   position: relative;
-  background: #fff;
+  background: black;
   border-radius: 8px;
   box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
   padding: 20px;
@@ -88,12 +121,13 @@
   margin-top: 20px;
   font-size: 14px;
   line-height: 1.6;
-  color: #666;
+  color: white;
 }
 
 .purchaseSection {
   flex: 1;
-  background: #fff;
+  background: black;
+  color: white;
   padding: 20px;
   border-radius: 8px;
   box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
@@ -102,7 +136,7 @@
 .gameTitle {
   font-size: 24px;
   font-weight: bold;
-  color: #333;
+  color: white;
   margin-bottom: 10px;
 }
 
@@ -156,8 +190,8 @@
 
 .gameDetails {
   margin-top: 20px;
-  font-size: 14px;
-  color: #444;
+  font-size: 18px;
+  color: white;
 }
 
 .gameDetails p {

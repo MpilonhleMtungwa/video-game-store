@@ -13,6 +13,7 @@ function App() {
       <Routes>
         <Route path="/" element={<Home />} />
         <Route path="/game/:id" element={<ProductDetail />} />
+        <Route path="/game/:genre" element={<ProductList />} />
       </Routes>
     </BrowserRouter>
   );

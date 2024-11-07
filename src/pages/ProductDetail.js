@@ -1,27 +1,26 @@
 import React, { useState, useEffect } from "react";
 import { useParams } from "react-router-dom";
 import styles from "../styles/ProductDetail.module.css";
+import NavBar from "../components/NavBar";
+import { fetchRawgGameData, fetchSteamPriceData } from "../Api/api";
 
 const ProductDetail = () => {
   const { id } = useParams();
   const [game, setGame] = useState({});
-  const [price, setPrice] = useState(null);
-  const [priceZAR, setPriceZAR] = useState(null); // State to store ZAR price
-  const [currentSlide, setCurrentSlide] = useState(0);
-  const [mediaItems, setMediaItems] = useState([]);
-  const [exchangeRate, setExchangeRate] = useState(1);
+  const [priceZAR, setPriceZAR] = useState(null); // ZAR price state
+  const [mediaItems, setMediaItems] = useState([]); // Media items state
+  const [currentSlide, setCurrentSlide] = useState(0); // Slide index state
 
   useEffect(() => {
     const fetchGameDetails = async () => {
       try {
-        // Fetch game details from RAWG API
+        // Fetch game details from RAWG
         const rawgResponse = await fetch(
           `https://api.rawg.io/api/games/${id}?key=${process.env.REACT_APP_RAWG_API_KEY}`
         );
         const rawgData = await rawgResponse.json();
-        console.log("RAWG Data:", rawgData); // Inspect the structure of the response
 
-        // Set game details with fallbacks
+        // Set game details
         setGame({
           title: rawgData.name || "Title not available",
           description:
@@ -40,12 +39,11 @@ const ProductDetail = () => {
         });
 
         // Set media items (trailer + screenshots)
-
         const trailer = rawgData.clip?.clip
           ? { type: "video", url: rawgData.clip.clip }
           : null;
 
-        //screenshots
+        // Fetch screenshots
         const screenshotsResponse = await fetch(
           `https://api.rawg.io/api/games/${id}/screenshots?key=${process.env.REACT_APP_RAWG_API_KEY}`
         );
@@ -56,26 +54,14 @@ const ProductDetail = () => {
         }));
         setMediaItems(trailer ? [trailer, ...screenshots] : screenshots);
 
-        // Fetch price information from CheapShark API
-        const cheapSharkResponse = await fetch(
-          `https://www.cheapshark.com/api/1.0/deals?title=${rawgData.name}`
+        // Fetch price information from Steam API (or substitute your API)
+        const priceData = await fetchSteamPriceData(id);
+        const priceInZAR = (priceData.price * priceData.exchangeRate).toFixed(
+          2
         );
-        const cheapSharkData = await cheapSharkResponse.json();
-        const lowestPriceDeal = cheapSharkData[0]?.salePrice || "N/A";
-        setPrice(lowestPriceDeal);
-
-        const exchangeRateResponse = await fetch(
-          `https://api.exchangerate-api.com/v4/latest/USD`
-        );
-        const exchangeRateData = await exchangeRateResponse.json();
-        const usdToZarRate = exchangeRateData.rates.ZAR;
-        setExchangeRate(usdToZarRate);
-
-        // Convert price to ZAR
-        const priceInZAR = lowestPriceDeal * usdToZarRate;
-        setPriceZAR(priceInZAR.toFixed(2)); // Round to 2 decimal places
+        setPriceZAR(priceInZAR);
       } catch (error) {
-        console.error("Failed to fetch game details or exchange rate", error);
+        console.error("Error fetching game details or price", error);
       }
     };
 
@@ -95,61 +81,80 @@ const ProductDetail = () => {
   if (!game.title) return <div>Loading...</div>;
 
   return (
-    <div className={styles.productDetailContainer}>
-      <div className={styles.mediaSection}>
-        <div className={styles.slideshowContainer}>
-          {mediaItems.length > 0 && mediaItems[currentSlide] ? (
-            mediaItems[currentSlide].type === "video" ? (
-              <video controls className={styles.gameVideo}>
-                <source src={mediaItems[currentSlide].url} type="video/mp4" />
-                Your browser does not support the video tag.
-              </video>
-            ) : (
-              <img
-                src={mediaItems[currentSlide].url}
-                alt="Screenshot"
-                className={styles.gameImage}
-              />
-            )
-          ) : (
-            <p>Loading media...</p>
+    <div className={styles.pageContainer}>
+      {/* Navbar at the top */}
+      <NavBar />
+      <div className={styles.gameInfoSection}>
+        <h1 className={styles.gameTitle}>{game.title}</h1>
+        <div className={styles.gameTags}>
+          {/* Display review score and any other tags here */}
+          <span className={styles.reviewScore}>
+            Rating: {game.rating || "N/A"}
+          </span>
+          {/* Add other tags from RAWG API if available */}
+          {game.genres && (
+            <span className={styles.genres}>
+              Genres: {game.genres.map((genre) => genre.name).join(", ")}
+            </span>
           )}
-          <button onClick={handlePrevSlide} className={styles.prevButton}>
-            ❮
-          </button>
-          <button onClick={handleNextSlide} className={styles.nextButton}>
-            ❯
-          </button>
-        </div>
-        <div className={styles.tabs}>
-          <button className={styles.tabButton}>Overview</button>
-          <button className={styles.tabButton}>Add-Ons</button>
-        </div>
-        <div className={styles.tabContent}>
-          <p>{game.description}</p>
         </div>
       </div>
-      <div className={styles.purchaseSection}>
-        <h1 className={styles.gameTitle}>{game.title}</h1>
-        <div className={styles.gameHeader}>
-          <span className={styles.highlight}>Base Game</span>
-          <span className={styles.gamePrice}>ZAR {priceZAR}</span>
+      <div className={styles.productDetailContainer}>
+        <div className={styles.mediaSection}>
+          <div className={styles.slideshowContainer}>
+            {mediaItems.length > 0 && mediaItems[currentSlide] ? (
+              mediaItems[currentSlide].type === "video" ? (
+                <video controls className={styles.gameVideo}>
+                  <source src={mediaItems[currentSlide].url} type="video/mp4" />
+                  Your browser does not support the video tag.
+                </video>
+              ) : (
+                <img
+                  src={mediaItems[currentSlide].url}
+                  alt="Screenshot"
+                  className={styles.gameImage}
+                />
+              )
+            ) : (
+              <p>Loading media...</p>
+            )}
+            <button onClick={handlePrevSlide} className={styles.prevButton}>
+              ❮
+            </button>
+            <button onClick={handleNextSlide} className={styles.nextButton}>
+              ❯
+            </button>
+          </div>
+          <div className={styles.tabs}>
+            <button className={styles.tabButton}>Overview</button>
+            <button className={styles.tabButton}>Add-Ons</button>
+          </div>
+          <div className={styles.tabContent}>
+            <p>{game.description}</p>
+          </div>
         </div>
-        <button className={styles.buyButton}>Buy Now</button>
-        <button className={styles.addButton}>Add To Cart</button>
-        <div className={styles.gameDetails}>
-          <p>
-            <strong>Developer:</strong> {game.developer}
-          </p>
-          <p>
-            <strong>Publisher:</strong> {game.publisher}
-          </p>
-          <p>
-            <strong>Release Date:</strong> {game.releaseDate}
-          </p>
-          <p>
-            <strong>Platform:</strong> {game.platform}
-          </p>
+        <div className={styles.purchaseSection}>
+          <h1 className={styles.gameTitle}>{game.title}</h1>
+          <div className={styles.gameHeader}>
+            <span className={styles.highlight}>Base Game</span>
+            <span className={styles.gamePrice}>ZAR {priceZAR}</span>
+          </div>
+          <button className={styles.buyButton}>Buy Now</button>
+          <button className={styles.addButton}>Add To Cart</button>
+          <div className={styles.gameDetails}>
+            <p>
+              <strong>Developer:</strong> {game.developer}
+            </p>
+            <p>
+              <strong>Publisher:</strong> {game.publisher}
+            </p>
+            <p>
+              <strong>Release Date:</strong> {game.releaseDate}
+            </p>
+            <p>
+              <strong>Platform:</strong> {game.platform}
+            </p>
+          </div>
         </div>
       </div>
     </div>
