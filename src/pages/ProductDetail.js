@@ -1,15 +1,28 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useContext } from "react";
 import { useParams } from "react-router-dom";
 import styles from "../styles/ProductDetail.module.css";
 import NavBar from "../components/NavBar";
+import { useCart } from "../context/CartContext";
 import { fetchRawgGameData, fetchSteamPriceData } from "../Api/api";
 
+const calculatePrice = (releaseYear) => {
+  if (releaseYear >= 2022) return 900;
+  if (releaseYear >= 2018) return 600;
+  if (releaseYear >= 2010) return 300;
+  if (releaseYear >= 2000) return 199;
+  return 100;
+};
+
 const ProductDetail = () => {
+  const { addToCart, addToWishlist } = useCart();
   const { id } = useParams();
   const [game, setGame] = useState({});
-  const [priceZAR, setPriceZAR] = useState(null); // ZAR price state
+
   const [mediaItems, setMediaItems] = useState([]); // Media items state
   const [currentSlide, setCurrentSlide] = useState(0); // Slide index state
+
+  const releaseYear = new Date(game.releaseDate).getFullYear();
+  const priceZAR = calculatePrice(releaseYear);
 
   useEffect(() => {
     const fetchGameDetails = async () => {
@@ -55,11 +68,6 @@ const ProductDetail = () => {
         setMediaItems(trailer ? [trailer, ...screenshots] : screenshots);
 
         // Fetch price information from Steam API (or substitute your API)
-        const priceData = await fetchSteamPriceData(id);
-        const priceInZAR = (priceData.price * priceData.exchangeRate).toFixed(
-          2
-        );
-        setPriceZAR(priceInZAR);
       } catch (error) {
         console.error("Error fetching game details or price", error);
       }
@@ -67,6 +75,26 @@ const ProductDetail = () => {
 
     fetchGameDetails();
   }, [id]);
+
+  const handleAddToCart = () => {
+    const cartItem = {
+      id: game.id,
+      title: game.name,
+      image: game.background_image,
+      price: priceZAR,
+    };
+    addToCart(cartItem); // Add the item to the cart
+  };
+
+  const handleAddToWishlist = () => {
+    const wishlistItem = {
+      id: game.id,
+      title: game.name,
+      image: game.background_image,
+      price: priceZAR,
+    };
+    addToWishlist(wishlistItem); // Add the item to the wishlist
+  };
 
   const handleNextSlide = () => {
     setCurrentSlide((prev) => (prev + 1) % mediaItems.length);
@@ -139,8 +167,12 @@ const ProductDetail = () => {
             <span className={styles.highlight}>Base Game</span>
             <span className={styles.gamePrice}>ZAR {priceZAR}</span>
           </div>
-          <button className={styles.buyButton}>Buy Now</button>
-          <button className={styles.addButton}>Add To Cart</button>
+          <button onClick={handleAddToWishlist} className={styles.buyButton}>
+            Add to Wishlist
+          </button>
+          <button onClick={handleAddToCart} className={styles.addButton}>
+            Add To Cart
+          </button>
           <div className={styles.gameDetails}>
             <p>
               <strong>Developer:</strong> {game.developer}

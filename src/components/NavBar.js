@@ -1,10 +1,13 @@
 import React, { useState } from "react";
+import { Link } from "react-router-dom";
+import { useCart } from "../context/CartContext";
 import styles from "../styles/NavBar.module.css";
 import { FaShoppingCart, FaHeart, FaUser, FaSearch } from "react-icons/fa"; // Font Awesome or similar icon library
 
 const NavBar = () => {
-  const [wishlistCount, setWishlistCount] = useState(3); // Example count
-  const [cartCount, setCartCount] = useState(2);
+  const { cartItems = [], wishlist = [] } = useCart();
+  const cartCount = cartItems.length;
+  const wishlistCount = wishlist.length;
   const [query, setQuery] = useState("");
   const [results, setResults] = useState([]);
   const [searchQuery, setSearchQuery] = useState("");
@@ -42,16 +45,20 @@ const NavBar = () => {
 
       <div className={styles.iconGroup}>
         <div className={styles.icon}>
-          <FaHeart />
-          {wishlistCount > 0 && (
-            <span className={styles.wishlistBadge}>{wishlistCount}</span>
-          )}
+          <Link to="/wishlist">
+            <FaHeart />
+            {wishlistCount > 0 && (
+              <span className={styles.wishlistBadge}>{wishlistCount}</span>
+            )}
+          </Link>
         </div>
         <div className={styles.icon}>
-          <FaShoppingCart />
-          {cartCount > 0 && (
-            <span className={styles.cartBadge}>{cartCount}</span>
-          )}
+          <Link to="/cart">
+            <FaShoppingCart />
+            {cartCount > 0 && (
+              <span className={styles.cartBadge}>{cartCount}</span>
+            )}
+          </Link>
         </div>
       </div>
 

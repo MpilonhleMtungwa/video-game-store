@@ -1,18 +1,52 @@
-import { createContext, useState, useContext } from "react";
+import React, { createContext, useContext, useState, useEffect } from "react";
 
 const CartContext = createContext();
 
-export const useCart = () => useContext(CartContext);
-
 export const CartProvider = ({ children }) => {
-  const [cart, setCart] = useState([]);
+  const [cartItems, setCartItems] = useState([]);
+  const [wishlist, setWishlist] = useState([]);
 
-  const addToCart = (item) => setCart([...cart, item]);
-  const removeFromCart = (id) => setCart(cart.filter((item) => item.id !== id));
+  useEffect(() => {
+    // Load cart items from localStorage on first render
+    const savedCartItems = JSON.parse(localStorage.getItem("cartItems")) || [];
+    setCartItems(savedCartItems);
+  }, []);
+
+  // Save to localStorage whenever cartItems changes
+  useEffect(() => {
+    localStorage.setItem("cartItems", JSON.stringify(cartItems));
+  }, [cartItems]);
+
+  // Function to add an item to the cart
+  const addToCart = (item) => {
+    setCartItems((prevItems) => {
+      const updatedItems = [...prevItems, item];
+      return updatedItems;
+    });
+  };
+
+  const removeFromCart = (id) => {
+    setCartItems((prevItems) => {
+      return prevItems.filter((item) => item.id !== id);
+    });
+  };
+
+  const subtotal = cartItems.reduce((total, item) => total + item.price, 0);
 
   return (
-    <CartContext.Provider value={{ cart, addToCart, removeFromCart }}>
+    <CartContext.Provider
+      value={{
+        cartItems,
+        setCartItems,
+        removeFromCart,
+        addToCart,
+
+        subtotal,
+      }}
+    >
       {children}
     </CartContext.Provider>
   );
 };
+
+export const useCart = () => useContext(CartContext);

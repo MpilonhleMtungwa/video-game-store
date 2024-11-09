@@ -1,38 +1,41 @@
 import React, { useState, useEffect } from "react";
-import ProductCard from "./ProductCard"; // Assuming you already have a ProductCard component
-import styles from "./ProductListView.module.css";
+import { useParams } from "react-router-dom";
+import ProductCard from "../components/ProductCard"; // Assuming you already have a ProductCard component
+import NavBar from "../components/NavBar";
+import Sidebar from "../components/sideBar";
+import styles from "../styles/ProductList.module.css";
 
-const ProductListView = ({ genre }) => {
+const ProductListView = () => {
+  const { genre } = useParams(); // Get the genre from the URL
   const [games, setGames] = useState([]);
-  const [loading, setLoading] = useState(true);
 
   useEffect(() => {
+    // Fetch games based on the genre
     const fetchGamesByGenre = async () => {
-      setLoading(true);
-      try {
-        // Fetch games from RAWG API based on the genre
-        const response = await fetch(
-          `https://api.rawg.io/api/games?genres=${genre}&key=${process.env.REACT_APP_RAWG_API_KEY}`
-        );
-        const data = await response.json();
-        setGames(data.results);
-      } catch (error) {
-        console.error("Error fetching games:", error);
-      } finally {
-        setLoading(false);
-      }
+      const response = await fetch(
+        `https://api.rawg.io/api/games?genres=${genre}&key=${process.env.REACT_APP_RAWG_API_KEY}&page_size=40`
+      );
+      const data = await response.json();
+      setGames(data.results);
     };
 
     fetchGamesByGenre();
   }, [genre]);
 
-  if (loading) return <p>Loading games...</p>;
+  <p>Loading games...</p>;
 
   return (
-    <div className={styles.productListViewContainer}>
-      {games.map((game) => (
-        <ProductCard key={game.id} game={game} />
-      ))}
+    <div className={styles.pageContainer}>
+      {/* Navbar at the top */}
+      <NavBar />
+      <div className={styles.mainContainer}>
+        <Sidebar />
+        <div className={styles.productListView}>
+          {games.map((game) => (
+            <ProductCard key={game.id} game={game} />
+          ))}
+        </div>
+      </div>
     </div>
   );
 };

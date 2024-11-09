@@ -1,0 +1,38 @@
+.productListView {
+    display: grid;
+    gap: 1rem;
+    grid-template-columns: repeat(4, 1fr); /* 4 cards in a row */
+    padding: 1rem;
+  }
+  
+  .pageContainer {
+    background-color: #1e1e1e;
+    color: #fff;
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh;
+  }
+  
+  .mainContainer {
+    display: flex;
+  }
+  
+  /* Responsive breakpoints */
+  @media (max-width: 1200px) {
+    .productListView {
+      grid-template-columns: repeat(3, 1fr); /* 3 cards for medium screens */
+    }
+  }
+  
+  @media (max-width: 768px) {
+    .productListView {
+      grid-template-columns: repeat(2, 1fr); /* 2 cards for small screens */
+    }
+  }
+  
+  @media (max-width: 480px) {
+    .productListView {
+      grid-template-columns: 1fr; /* 1 card for extra small screens */
+    }
+  }
+  

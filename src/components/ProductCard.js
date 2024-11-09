@@ -2,16 +2,32 @@ import React, { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import styles from "../styles/ProductCard.module.css";
 
+const calculatePrice = (releaseYear) => {
+  if (releaseYear >= 2022) return 900;
+  if (releaseYear >= 2018) return 600;
+  if (releaseYear >= 2010) return 300;
+  if (releaseYear >= 2000) return 199;
+  return 100;
+};
+
 const ProductCard = ({ game }) => {
   const {
     id,
     name,
     background_image,
     category,
-    priceZAR,
+
     priceBeforeDiscountZAR,
     discount,
   } = game;
+
+  const releaseDate = game.released || game.releaseDate; // Adjust based on the property name in your data
+  const releaseYear = releaseDate ? new Date(releaseDate).getFullYear() : null;
+
+  // Check if the releaseYear was calculated correctly
+  const priceZAR = releaseYear
+    ? calculatePrice(releaseYear)
+    : "Price not available";
 
   return (
     <Link to={`/game/${game.id}`} className={styles.cardLink}>
