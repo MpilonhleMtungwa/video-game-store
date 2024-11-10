@@ -76,6 +76,7 @@ const HomePage = () => {
     <div className={styles.pageContainer}>
       {/* Navbar at the top */}
       <NavBar />
+
       <div className={styles.mainContainer}>
         <Sidebar
           onPlatformSelect={handlePlatformSelect}

@@ -14,7 +14,7 @@ const calculatePrice = (releaseYear) => {
 };
 
 const ProductDetail = () => {
-  const { addToCart, addToWishlist } = useCart();
+  const { addToCart, addToWishlist, setCartItems } = useCart();
   const { id } = useParams();
   const [game, setGame] = useState({});
 
@@ -36,6 +36,8 @@ const ProductDetail = () => {
         // Set game details
         setGame({
           title: rawgData.name || "Title not available",
+          background_image: rawgData.background_image || "Image not available",
+          id: rawgData.id || "ID not available",
           description:
             rawgData.description_raw ||
             rawgData.description ||
@@ -79,17 +81,20 @@ const ProductDetail = () => {
   const handleAddToCart = () => {
     const cartItem = {
       id: game.id,
-      title: game.name,
-      image: game.background_image,
+      title: game.title, // make sure this matches `setGame`'s properties
+      image: game.background_image, // ensure it matches the image property in `setGame`
       price: priceZAR,
     };
-    addToCart(cartItem); // Add the item to the cart
+
+    // Add to cart and save to local storage
+    addToCart(cartItem);
+    console.log(cartItem);
   };
 
   const handleAddToWishlist = () => {
     const wishlistItem = {
       id: game.id,
-      title: game.name,
+      title: game.title,
       image: game.background_image,
       price: priceZAR,
     };
@@ -165,7 +170,7 @@ const ProductDetail = () => {
           <h1 className={styles.gameTitle}>{game.title}</h1>
           <div className={styles.gameHeader}>
             <span className={styles.highlight}>Base Game</span>
-            <span className={styles.gamePrice}>ZAR {priceZAR}</span>
+            <span className={styles.gamePrice}>R {priceZAR}</span>
           </div>
           <button onClick={handleAddToWishlist} className={styles.buyButton}>
             Add to Wishlist

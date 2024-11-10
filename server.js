@@ -7,6 +7,15 @@ const app = express();
 app.use(cors());
 const PORT = process.env.PORT || 5000;
 
+// Connect to MongoDB
+mongoose.connect(process.env.MONGO_URI, {
+  useNewUrlParser: true,
+  useUnifiedTopology: true,
+});
+
+// Set up routes
+app.use("/auth", authRoutes);
+
 app.get("/api/game-details", async (req, res) => {
   try {
     const response = await fetch(`${proxyUrl}${apiUrl}`);

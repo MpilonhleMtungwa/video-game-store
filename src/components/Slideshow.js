@@ -4,7 +4,7 @@ import "slick-carousel/slick/slick-theme.css";
 import styles from "../styles/Slideshow.module.css";
 import React, { useState } from "react";
 
-const Slideshow = ({ games }) => {
+const Slideshow = ({ games = [] }) => {
   const [currentSlide, setCurrentSlide] = useState(0);
 
   const nextSlide = () => {

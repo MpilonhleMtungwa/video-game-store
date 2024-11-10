@@ -9,11 +9,12 @@ const Cart = () => {
   useEffect(() => {
     const savedCartItems = JSON.parse(localStorage.getItem("cartItems")) || [];
     setCartItems(savedCartItems);
+    console.log("Cart items:", cartItems);
   }, [setCartItems]);
 
   const handleRemove = (id) => {
     setCartItems((prevItems) => {
-      const updatedCart = prevItems.filter((item) => item.id !== id);
+      const updatedCart = prevItems.filter((cartItem) => cartItem.id !== id);
       localStorage.setItem("cartItems", JSON.stringify(updatedCart));
       return updatedCart;
     });
@@ -31,13 +32,14 @@ const Cart = () => {
             cartItems.map((item) => (
               <div className={styles.cartitem} key={item.id}>
                 <img
-                  src={item.background_image}
+                  src={item.image}
                   alt={item.title}
                   className={styles.itemimage}
                 />
                 <div className={styles.itemdetails}>
                   <span className={styles.itemtitle}>{item.title}</span>
-                  <span className={styles.itemprice}>ZAR {item.price}</span>
+                  <br></br>
+                  <span className={styles.itemprice}>R {item.price}</span>
 
                   <div className={styles.itemactions}>
                     <button
@@ -56,11 +58,11 @@ const Cart = () => {
         </div>
 
         <div className={styles.cartsummary}>
-          <h2>Games and Apps Summary</h2>
+          <h2>Games Summary</h2>
           <div className={styles.summarydetails}>
             <div className={styles.summaryitem}>
               <span>Price</span>
-              <span>ZAR {subtotal}</span>
+              <span>R {subtotal}</span>
             </div>
             <div className={styles.summaryitem}>
               <span>Taxes</span>
@@ -68,7 +70,8 @@ const Cart = () => {
             </div>
             <div className="summary-item total">
               <span>Subtotal</span>
-              <span>ZAR {calculateTotalPrice()}</span>
+              <br></br>
+              <span>R {calculateTotalPrice()}</span>
             </div>
           </div>
           <button className={styles.checkoutbtn}>Check Out</button>
