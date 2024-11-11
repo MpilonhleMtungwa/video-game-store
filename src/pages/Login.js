@@ -2,28 +2,27 @@ import React, { useState } from "react";
 import styles from "../styles/login.module.css";
 import { Link } from "react-router-dom";
 import axios from "axios";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, useLocation } from "react-router-dom";
 
 const LoginForm = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const navigate = useNavigate();
+  const location = useLocation;
 
   const handleLogin = async (email, password) => {
     try {
-      const response = await axios.post(
-        "https://my-blog-9i38.onrender.com/api/auth/login",
-        {
-          email,
-          password,
-        }
-      );
+      const response = await axios.post("http://localhost:5000/auth/login", {
+        email,
+        password,
+      });
       const token = response.data.token;
 
       // Save token to localStorage
       localStorage.setItem("token", token);
 
-      navigate("/createpost");
+      const redirectTo = location.state?.from || "/"; // Default to home if no previous location
+      navigate(redirectTo);
     } catch (error) {
       console.error("Login failed:", error);
     }
@@ -71,3 +70,5 @@ const LoginForm = () => {
     </div>
   );
 };
+
+export default LoginForm;

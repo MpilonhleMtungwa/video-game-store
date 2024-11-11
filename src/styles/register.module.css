@@ -1,4 +1,4 @@
-.form-container {
+.formcontainer {
   display: flex;
   justify-content: center;
   align-items: center;
@@ -6,7 +6,7 @@
   padding: 20px; /* Optional: For some spacing around the form */
 }
 
-.form-wrapper {
+.formwrapper {
   width: 100%;
   max-width: 400px;
   padding: 20px;
@@ -15,7 +15,7 @@
   box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
 }
 
-.register-image {
+.registerimage {
   width: 150px;
   margin-bottom: 20px;
 }
@@ -24,25 +24,25 @@ h2 {
   margin-bottom: 20px;
 }
 
-.form-group {
+.formgroup {
   margin-bottom: 20px;
   text-align: left;
 }
 
-.form-group label {
+.formgroup label {
   display: block;
   margin-bottom: 5px;
   font-weight: bold;
 }
 
-.form-group input {
+.formgroup input {
   width: 100%;
   padding: 10px;
   border: 1px solid #ccc;
   border-radius: 4px;
 }
 
-.register-btn {
+.registerbtn {
   width: 100%;
   padding: 10px;
   background-color: #28a745;
@@ -53,21 +53,21 @@ h2 {
   font-size: 1rem;
 }
 
-.register-btn:hover {
+.registerbtn:hover {
   background-color: #218838;
 }
 
-.login-link {
+.loginlink {
   margin-top: 20px;
   font-size: 0.9rem;
 }
 
-.login-link a {
+.loginlink a {
   color: #007bff;
   text-decoration: none;
 }
 
-.login-link a:hover {
+.loginlink a:hover {
   text-decoration: underline;
 }
 
@@ -77,13 +77,13 @@ footer {
   color: #999;
 }
 
-.social-icons a {
+.socialicons a {
   margin-right: 10px;
   color: #007bff;
   text-decoration: none;
   font-size: 1rem;
 }
 
-.social-icons a:hover {
+.socialicons a:hover {
   text-decoration: underline;
 }

@@ -1,5 +1,6 @@
 import "./App.css";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
+import ProtectedRoute from "./routes/protectedRoutes";
 import Home from "./pages/Home";
 import ProductList from "./pages/ProductList";
 import ProductDetail from "./pages/ProductDetail";
@@ -9,6 +10,7 @@ import Cart from "./pages/Cart";
 
 import Checkout from "./pages/Checkout";
 import Login from "./pages/Login";
+import Register from "./pages/Register";
 
 function App() {
   return (
@@ -20,6 +22,17 @@ function App() {
         <Route path="/games/platform/:platform" element={<PlatformGames />} />
         <Route path="/games/all" element={<AllGames />} />
         <Route path="/cart" element={<Cart />} />
+
+        <Route
+          path="/checkout"
+          element={
+            <ProtectedRoute>
+              <Checkout />
+            </ProtectedRoute>
+          }
+        />
+        <Route path="/login" element={<Login />} />
+        <Route path="/register" element={<Register />} />
       </Routes>
     </BrowserRouter>
   );

@@ -63,7 +63,9 @@ const NavBar = () => {
       </div>
 
       <div className={styles.loginRegister}>
-        <button onClick={() => console.log("Login clicked")}>Login</button>
+        <Link to="/login">
+          <FaUser />
+        </Link>
         <button onClick={() => console.log("Register clicked")}>
           Register
         </button>
