@@ -32,6 +32,9 @@ export const CartProvider = ({ children }) => {
   };
 
   const subtotal = cartItems.reduce((total, item) => total + item.price, 0);
+  const calculateCartTotal = () => {
+    return cartItems.reduce((total, item) => total + item.price, 0);
+  };
 
   return (
     <CartContext.Provider
@@ -40,6 +43,7 @@ export const CartProvider = ({ children }) => {
         setCartItems,
         removeFromCart,
         addToCart,
+        calculateCartTotal,
 
         subtotal,
       }}

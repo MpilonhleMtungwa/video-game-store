@@ -1,0 +1,68 @@
+.checkoutcontainer {
+  display: flex;
+  gap: 20px;
+  flex-wrap: wrap;
+}
+
+.cartsummary,
+.checkoutform {
+  border: 1px solid #ccc;
+  padding: 20px;
+  border-radius: 5px;
+}
+
+.cartsummary {
+  flex: 1;
+  min-width: 300px;
+}
+
+.checkoutform {
+  flex: 2;
+  display: flex;
+  gap: 20px;
+  flex-wrap: wrap;
+}
+
+.billingsection,
+.paymentsection {
+  flex: 1 1 100%;
+}
+
+form div,
+.smallfields div {
+  display: flex;
+  flex-direction: column;
+  margin-bottom: 10px;
+}
+
+form label {
+  font-weight: bold;
+  margin-bottom: 5px;
+}
+
+input[type="text"],
+input[type="email"] {
+  padding: 8px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+}
+
+.smallfields {
+  display: flex;
+  gap: 10px;
+}
+
+.paypalbutton {
+  margin-top: 20px;
+}
+
+/* Responsive adjustments */
+@media (max-width: 768px) {
+  .checkoutcontainer {
+    flex-direction: column;
+  }
+
+  .cartsummary {
+    order: -1; /* Move cart above form */
+  }
+}

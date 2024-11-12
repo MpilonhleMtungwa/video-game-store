@@ -6,10 +6,10 @@ import { useCart } from "../context/CartContext";
 import { fetchRawgGameData, fetchSteamPriceData } from "../Api/api";
 
 const calculatePrice = (releaseYear) => {
-  if (releaseYear >= 2022) return 900;
-  if (releaseYear >= 2018) return 600;
-  if (releaseYear >= 2010) return 300;
-  if (releaseYear >= 2000) return 199;
+  if (releaseYear >= 2022) return 899;
+  if (releaseYear >= 2018) return 599;
+  if (releaseYear >= 2010) return 299;
+  if (releaseYear >= 2000) return 149;
   return 100;
 };
 

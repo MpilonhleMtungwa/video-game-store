@@ -1,11 +1,19 @@
 import React from "react";
 import { useAuth } from "../context/AuthContext";
-import { Navigate } from "react-router-dom";
+import { Navigate, useLocation } from "react-router-dom";
 
 const ProtectedRoute = ({ children }) => {
-  const { isAuthenticated } = useAuth();
+  const { isAuthenticated, loading } = useAuth();
+  const location = useLocation();
 
-  return isAuthenticated ? children : <Navigate to="/login" />;
+  if (loading) return <div>Loading...</div>;
+
+  return isAuthenticated ? (
+    children
+  ) : (
+    // Redirect to login with the previous location saved in `state`
+    <Navigate to="/login" state={{ from: location }} />
+  );
 };
 
 export default ProtectedRoute;

@@ -1,10 +1,12 @@
 import React, { useState } from "react";
 import styles from "../styles/login.module.css";
 import { Link } from "react-router-dom";
+import { useAuth } from "../context/AuthContext";
 import axios from "axios";
 import { useNavigate, useLocation } from "react-router-dom";
 
 const LoginForm = () => {
+  const { setIsAuthenticated } = useAuth();
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const navigate = useNavigate();
@@ -19,9 +21,11 @@ const LoginForm = () => {
       const token = response.data.token;
 
       // Save token to localStorage
-      localStorage.setItem("token", token);
+      localStorage.setItem("token", token); // Store token in localStorage
+      setIsAuthenticated(true);
 
-      const redirectTo = location.state?.from || "/"; // Default to home if no previous location
+      // If `location.state.from` is defined, redirect there; otherwise, go to homepage
+      const redirectTo = location.state?.from?.pathname || "/";
       navigate(redirectTo);
     } catch (error) {
       console.error("Login failed:", error);
