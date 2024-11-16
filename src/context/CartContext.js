@@ -31,6 +31,11 @@ export const CartProvider = ({ children }) => {
     });
   };
 
+  const clearCart = () => {
+    setCartItems([]);
+    // Reset any additional cart-related state here, if applicable
+  };
+
   const subtotal = cartItems.reduce((total, item) => total + item.price, 0);
   const calculateCartTotal = () => {
     return cartItems.reduce((total, item) => total + item.price, 0);
@@ -44,6 +49,7 @@ export const CartProvider = ({ children }) => {
         removeFromCart,
         addToCart,
         calculateCartTotal,
+        clearCart,
 
         subtotal,
       }}

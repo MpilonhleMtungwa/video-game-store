@@ -1,24 +1,57 @@
 import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import styles from "../styles/checkOutForm.module.css"; // Assuming CSS modules for styling
+import emailjs from "emailjs-com";
 import { PayPalScriptProvider, PayPalButtons } from "@paypal/react-paypal-js";
 import { useCart } from "../context/CartContext";
 
 const CheckoutForm = () => {
-  const { cartItems, calculateCartTotal } = useCart();
+  const { cartItems, calculateCartTotal, clearCart } = useCart();
   const navigate = useNavigate();
-  const { clearCart } = useCart();
+
+  const [userData, setUserData] = useState({
+    email: "",
+    name: "",
+  });
+
+  const handleInputChange = (e) => {
+    const { name, value } = e.target;
+    setUserData((prevUserData) => ({ ...prevUserData, [name]: value }));
+  };
+
+  const sendEmailInvoice = (transactionDetails) => {
+    const templateParams = {
+      user_email: transactionDetails.user_email,
+      user_name: transactionDetails.user_name,
+      transaction_id: transactionDetails.transaction_id,
+      amount: transactionDetails.amount,
+    };
+    console.log("Template parameters:", templateParams);
+
+    emailjs
+      .send(
+        process.env.REACT_APP_EMAILJS_SERVICE_ID,
+        process.env.REACT_APP_EMAILJS_TEMPLATE_ID,
+        templateParams,
+        process.env.REACT_APP_EMAILJS_USER_ID
+      )
+      .then((response) => {
+        console.log("Email sent successfully!", response.status, response.text);
+      })
+      .catch((error) => {
+        console.error("Failed to send email", error);
+      });
+  };
 
   return (
     <div className={styles.checkoutcontainer}>
-      {/* Cart Summary */}
       <div className={styles.cartsummary}>
         <h3>Cart</h3>
         <ul>
           {cartItems.map((item) => (
             <li key={item.id}>
               <span>{item.title}</span>
-              <br></br>
+              <br />
               <span>R{item.price}</span>
             </li>
           ))}
@@ -28,19 +61,29 @@ const CheckoutForm = () => {
         </p>
       </div>
 
-      {/* Billing & Payment Section */}
       <div className={styles.checkoutform}>
-        {/* Billing Address */}
         <div className={styles.billingsection}>
           <h3>Billing Address</h3>
           <form>
             <div>
               <label>Full Name</label>
-              <input type="text" placeholder="John M. Doe" />
+              <input
+                type="text"
+                name="name"
+                value={userData.name}
+                onChange={handleInputChange}
+                placeholder="Full Name"
+              />
             </div>
             <div>
               <label>Email</label>
-              <input type="email" placeholder="john@example.com" />
+              <input
+                type="email"
+                name="email"
+                value={userData.email}
+                onChange={handleInputChange}
+                placeholder="john@example.com"
+              />
             </div>
             <div>
               <label>Address</label>
@@ -66,12 +109,10 @@ const CheckoutForm = () => {
             </div>
           </form>
 
-          {/* PayPal button integration */}
           <div className={styles.paypalButton}>
             <PayPalScriptProvider
               options={{
-                "client-id":
-                  "AWTgbnTxr7Cgbx28epQwNkHmGoXITFErOlvnozttXDmpZQLBf9h7RzwFrT4yrIJ9N3yrwVN5DIH29whM",
+                "client-id": process.env.REACT_APP_PAYPAL_CLIENT_ID,
               }}
             >
               <PayPalButtons
@@ -81,7 +122,7 @@ const CheckoutForm = () => {
                     purchase_units: [
                       {
                         amount: {
-                          value: calculateCartTotal().toFixed(2), // Convert total to a string with two decimal places
+                          value: calculateCartTotal().toFixed(2),
                         },
                       },
                     ],
@@ -89,15 +130,18 @@ const CheckoutForm = () => {
                 }}
                 onApprove={(data, actions) => {
                   return actions.order.capture().then((details) => {
+                    const transactionDetails = {
+                      transaction_id: details.id,
+                      amount: calculateCartTotal().toFixed(2),
+                      user_email: userData.email, // use userData for email
+                      user_name: userData.name, // use userData for name
+                    };
+                    sendEmailInvoice(transactionDetails); // Pass all details for email
                     alert(
                       "Transaction completed by " +
                         details.payer.name.given_name
                     );
-
-                    // Clear the cart
                     clearCart();
-
-                    // Redirect to the homepage
                     navigate("/");
                   });
                 }}

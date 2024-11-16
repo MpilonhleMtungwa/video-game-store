@@ -1,37 +1,132 @@
-.slideshow {
-  position: relative;
-  width: 100%;
-  height: 100%;
+/* Assuming this is in your styles.module.css */
+
+.container {
   display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 20px;
+  max-width: 1000px; /* Set maximum width */
+  margin: 0 auto; /* Center the container */
   overflow: hidden;
 }
 
-.slide {
-  min-width: 100%;
-  height: 100%;
-  transition: transform 0.5s ease-in-out;
-  background-size: cover;
-  background-position: center;
+.slideshow {
+  position: relative;
+  width: 100%;
+  height: 550px; /* Set a fixed height for the slideshow */
+  overflow: hidden; /* Prevent images from overflowing */
 }
 
-.slideshowDots {
-  position: absolute;
-  bottom: 20px;
-  left: 50%;
-  transform: translateX(-50%);
+.slideContainer {
   display: flex;
-  gap: 8px;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  height: 100%;
+}
+
+.slide {
+  width: 100%;
+  height: 100%;
+  background-size: cover;
+  background-position: center;
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  overflow: hidden; /* Contain background image */
+}
+
+.slideLink {
+  text-decoration: none;
+  color: inherit; /* Inherits text color to prevent unexpected styling */
+}
+
+.overlay {
+  position: absolute;
+
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.5); /* Dark overlay for text contrast */
+  z-index: 1;
+}
+
+.slideContent {
+  position: relative;
+  z-index: 2;
+  text-align: center;
+  color: #fff;
+  padding: 150px;
+  height: 150px;
+}
+
+.addToCartButton {
+  background-color: #ff6600;
+  color: #fff;
+  padding: 10px 20px;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+}
+
+.nextArrow,
+.prevArrow {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  font-size: 24px;
+  color: white;
+  background: rgba(0, 0, 0, 0.5);
+  padding: 10px;
+  border-radius: 50%;
+  cursor: pointer;
+  z-index: 5;
+}
+
+.nextArrow {
+  right: 20px; /* Adjust distance from the right */
+}
+
+.prevArrow {
+  left: 20px; /* Adjust distance from the left */
+}
+
+.nextArrow:hover,
+.prevArrow:hover {
+  background: rgba(0, 0, 0, 0.8);
+}
+
+/* Dots styling */
+.slideshowDots {
+  display: flex;
+  justify-content: center;
+  margin-top: 15px;
+  position: relative;
+  z-index: 2;
 }
 
 .dot {
   width: 12px;
   height: 12px;
-  background-color: #ccc;
+  background-color: white;
   border-radius: 50%;
+  margin: 0 5px;
   cursor: pointer;
-  transition: background-color 0.3s;
+  transition: transform 0.3s ease;
 }
 
-.dotActive {
-  background-color: #007acc;
+.dot:hover {
+  transform: scale(1.2);
+}
+
+.activeDot {
+  background-color: rgb(22, 3, 73);
+}
+
+@media (max-width: 768px) {
+  .slide {
+    height: 300px; /* Smaller height for mobile */
+  }
 }

@@ -15,6 +15,14 @@
   z-index: 1000;
 }
 
+.slideshowcontainer {
+  max-width: 1200px; /* Set maximum width for the slideshow */
+
+  margin: 0 auto; /* Center the container */
+  padding: 1rem;
+  overflow: hidden;
+}
+
 .homepageContainer {
   padding: 20px;
   flex: 1;
@@ -22,6 +30,10 @@
 
 .mainContainer {
   display: flex;
+}
+
+.sectionHeading {
+  margin-bottom: -20px;
 }
 
 .sidebar {

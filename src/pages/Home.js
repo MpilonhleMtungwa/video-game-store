@@ -83,27 +83,29 @@ const HomePage = () => {
           onGenreSelect={handleGenreSelect}
           onLoadAll={handleLoadAll}
         />
-        <div className={styles.homepageContainer}>
-          <h2>Popular</h2>
-          <ProductGrid games={mostPopularGames} />
 
-          <h2>Recent</h2>
-          <ProductGrid games={recentlyUpdatedGames} />
+        <div className={styles.slideshowcontainer}>
+          <Slideshow games={recentlyUpdatedGames} />
 
-          <h2>Action</h2>
-          <ProductGrid games={actionGames} />
+          <div className={styles.homepageContainer}>
+            <h2 className={styles.sectionHeading}>Popular</h2>
+            <ProductGrid games={mostPopularGames} />
 
-          <h2>Puzzle</h2>
-          <ProductGrid games={puzzleGames} />
+            <h2 className={styles.sectionHeading}>Action</h2>
+            <ProductGrid games={actionGames} />
 
-          <h2>Shooter</h2>
-          <ProductGrid games={shooterGames} />
+            <h2 className={styles.sectionHeading}>Puzzle</h2>
+            <ProductGrid games={puzzleGames} />
 
-          <h2>Racing</h2>
-          <ProductGrid games={racingGames} />
+            <h2 className={styles.sectionHeading}>Shooter</h2>
+            <ProductGrid games={shooterGames} />
 
-          <h2>Adventure</h2>
-          <ProductGrid games={adventureGames} />
+            <h2 className={styles.sectionHeading}>Racing</h2>
+            <ProductGrid games={racingGames} />
+
+            <h2 className={styles.sectionHeading}>Adventure</h2>
+            <ProductGrid games={adventureGames} />
+          </div>
         </div>
       </div>
     </div>
