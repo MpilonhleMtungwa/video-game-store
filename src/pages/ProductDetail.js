@@ -122,9 +122,8 @@ const ProductDetail = () => {
         <div className={styles.gameTags}>
           {/* Display review score and any other tags here */}
           <span className={styles.reviewScore}>
-            Rating: {game.rating || "N/A"}
+            Rating: {game.rating || "N/A"}/5
           </span>
-          {/* Add other tags from RAWG API if available */}
           {game.genres && (
             <span className={styles.genres}>
               Genres: {game.genres.map((genre) => genre.name).join(", ")}
@@ -132,66 +131,77 @@ const ProductDetail = () => {
           )}
         </div>
       </div>
+
       <div className={styles.productDetailContainer}>
-        <div className={styles.mediaSection}>
-          <div className={styles.slideshowContainer}>
-            {mediaItems.length > 0 && mediaItems[currentSlide] ? (
-              mediaItems[currentSlide].type === "video" ? (
-                <video controls className={styles.gameVideo}>
-                  <source src={mediaItems[currentSlide].url} type="video/mp4" />
-                  Your browser does not support the video tag.
-                </video>
+        <div className={styles.mediaAndPurchase}>
+          {/* Media Section */}
+          <div className={styles.mediaSection}>
+            <div className={styles.slideshowContainer}>
+              {mediaItems.length > 0 && mediaItems[currentSlide] ? (
+                mediaItems[currentSlide].type === "video" ? (
+                  <video controls className={styles.gameVideo}>
+                    <source
+                      src={mediaItems[currentSlide].url}
+                      type="video/mp4"
+                    />
+                    Your browser does not support the video tag.
+                  </video>
+                ) : (
+                  <img
+                    src={mediaItems[currentSlide].url}
+                    alt="Screenshot"
+                    className={styles.gameImage}
+                  />
+                )
               ) : (
-                <img
-                  src={mediaItems[currentSlide].url}
-                  alt="Screenshot"
-                  className={styles.gameImage}
-                />
-              )
-            ) : (
-              <p>Loading media...</p>
-            )}
-            <button onClick={handlePrevSlide} className={styles.prevButton}>
-              ❮
-            </button>
-            <button onClick={handleNextSlide} className={styles.nextButton}>
-              ❯
-            </button>
+                <p>Loading media...</p>
+              )}
+              <button onClick={handlePrevSlide} className={styles.prevButton}>
+                ❮
+              </button>
+              <button onClick={handleNextSlide} className={styles.nextButton}>
+                ❯
+              </button>
+            </div>
           </div>
-          <div className={styles.tabs}>
-            <button className={styles.tabButton}>Overview</button>
-            <button className={styles.tabButton}>Add-Ons</button>
-          </div>
-          <div className={styles.tabContent}>
-            <p>{game.description}</p>
+
+          {/* Purchase Section */}
+          <div className={styles.purchaseSection}>
+            <h1 className={styles.gameTitle}>{game.title}</h1>
+            <div className={styles.gameHeader}>
+              <span className={styles.highlight}>Base Game</span>
+              <span className={styles.gamePrice}>R {priceZAR}</span>
+            </div>
+            <button onClick={handleAddToWishlist} className={styles.buyButton}>
+              Add to Wishlist
+            </button>
+            <button onClick={handleAddToCart} className={styles.addButton}>
+              Add To Cart
+            </button>
+            <div className={styles.gameDetails}>
+              <p>
+                <strong>Developer:</strong> {game.developer}
+              </p>
+              <p>
+                <strong>Publisher:</strong> {game.publisher}
+              </p>
+              <p>
+                <strong>Release Date:</strong> {game.releaseDate}
+              </p>
+              <p>
+                <strong>Platform:</strong> {game.platform}
+              </p>
+            </div>
           </div>
         </div>
-        <div className={styles.purchaseSection}>
-          <h1 className={styles.gameTitle}>{game.title}</h1>
-          <div className={styles.gameHeader}>
-            <span className={styles.highlight}>Base Game</span>
-            <span className={styles.gamePrice}>R {priceZAR}</span>
-          </div>
-          <button onClick={handleAddToWishlist} className={styles.buyButton}>
-            Add to Wishlist
-          </button>
-          <button onClick={handleAddToCart} className={styles.addButton}>
-            Add To Cart
-          </button>
-          <div className={styles.gameDetails}>
-            <p>
-              <strong>Developer:</strong> {game.developer}
-            </p>
-            <p>
-              <strong>Publisher:</strong> {game.publisher}
-            </p>
-            <p>
-              <strong>Release Date:</strong> {game.releaseDate}
-            </p>
-            <p>
-              <strong>Platform:</strong> {game.platform}
-            </p>
-          </div>
+
+        {/* Tabs Section */}
+        <div className={styles.tabs}>
+          <button className={styles.tabButton}>Overview</button>
+          <button className={styles.tabButton}>Add-Ons</button>
+        </div>
+        <div className={styles.tabContent}>
+          <p>{game.description}</p>
         </div>
       </div>
     </div>

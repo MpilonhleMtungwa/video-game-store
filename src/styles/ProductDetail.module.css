@@ -32,8 +32,6 @@
 }
 
 .productDetailContainer {
-  display: flex;
-  flex-direction: row;
   justify-content: space-between;
   padding: 20px;
   gap: 20px;
@@ -49,11 +47,19 @@
   padding: 20px;
 }
 
+.mediaAndPurchase {
+  display: flex;
+  flex-wrap: wrap; /* Allows stacking on smaller screens */
+  gap: 20px; /* Adds spacing between sections */
+  align-items: flex-start;
+}
+
 .slideshowContainer {
   position: relative;
   display: flex;
   align-items: center;
   justify-content: center;
+  margin-bottom: 20px;
 }
 
 .gameImage,
@@ -196,4 +202,13 @@
 
 .gameDetails p {
   margin: 4px 0;
+}
+
+/* Mobile Responsiveness */
+
+@media (max-width: 768px) {
+  /* Stack the media and purchase sections vertically */
+  .mediaAndPurchase {
+    flex-direction: column; /* Stack sections vertically */
+  }
 }

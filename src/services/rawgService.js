@@ -24,7 +24,7 @@ export const fetchGameDetails = async (category = "") => {
             ? undefined
             : category,
         ordering: ordering || undefined,
-        page_size: 6,
+        page_size: 4,
       },
     });
 

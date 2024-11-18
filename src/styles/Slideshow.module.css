@@ -63,12 +63,13 @@
 }
 
 .addToCartButton {
-  background-color: #ff6600;
-  color: #fff;
+  background-color: #ffffff;
+  color: #0e0d0d;
   padding: 10px 20px;
   border: none;
   border-radius: 5px;
   cursor: pointer;
+  font-style: bold;
 }
 
 .nextArrow,
@@ -126,7 +127,41 @@
 }
 
 @media (max-width: 768px) {
-  .slide {
-    height: 300px; /* Smaller height for mobile */
+  .slideshow {
+    height: 250px; /* Smaller height for tablets and mobile */
+  }
+
+  .slideContent {
+    padding: 30px; /* Reduce padding */
+    font-size: 14px; /* Adjust font size */
+  }
+
+  .nextArrow,
+  .prevArrow {
+    font-size: 18px; /* Reduce arrow size */
+    padding: 5px; /* Smaller padding */
+  }
+
+  .dot {
+    width: 8px; /* Smaller dots */
+    height: 8px;
+  }
+}
+
+/* Media query for screens smaller than 480px */
+@media (max-width: 480px) {
+  .slideshow {
+    height: 200px; /* Even smaller height for phones */
+  }
+
+  .slideContent {
+    padding: 20px; /* Further reduce padding */
+    font-size: 12px; /* Smaller font size for compact layout */
+  }
+
+  .nextArrow,
+  .prevArrow {
+    font-size: 16px; /* Further reduce arrow size */
+    padding: 4px; /* Adjust padding */
   }
 }

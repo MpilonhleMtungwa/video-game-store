@@ -10,6 +10,22 @@
   color: white;
 }
 
+.searchButton {
+  background-color: #ffffff;
+  color: #0e0d0d;
+  padding: 10px 20px;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  font-style: bold;
+}
+
+.logoImage {
+  width: 40px; /* Adjust width as needed */
+  height: auto; /* Maintain aspect ratio */
+  cursor: pointer; /* Makes the logo look clickable */
+}
+
 .searchContainer {
   flex: 1;
   display: flex;
@@ -51,12 +67,14 @@
 
 .searchResults ul {
   list-style: none;
-  margin: 0;
   padding: 0;
+  margin: 0;
 }
 
 .searchResults li {
-  padding: 0.5rem;
+  display: flex;
+  align-items: center;
+  padding: 10px;
   cursor: pointer;
 }
 
@@ -64,14 +82,33 @@
   background: #f0f0f0;
 }
 
+.searchResultLink {
+  text-decoration: none;
+  color: black;
+  display: flex;
+  align-items: center;
+}
+
+.searchResultLink:hover {
+  text-decoration: underline;
+}
+
+.resultImage {
+  width: 50px;
+  height: 50px;
+  object-fit: cover;
+  margin-right: 10px;
+}
+
 .iconGroup,
 .loginRegister {
   display: flex;
+  align-items: center;
   gap: 15px;
 }
 
 .iconGroup {
-  margin-right: 10px;
+  margin-left: 90px;
 }
 
 .icon {
@@ -96,6 +133,7 @@
   display: flex;
   gap: 5px;
   margin-left: 0;
+  font-size: 22px;
 }
 
 .loginRegister button {
@@ -105,4 +143,48 @@
   color: #fff;
   cursor: pointer;
   border-radius: 5px;
+}
+
+/* Media Queries for Responsiveness */
+@media (max-width: 768px) {
+  .navbarContainer {
+    flex-wrap: wrap; /* Allow items to wrap if necessary */
+  }
+
+  .searchContainer {
+    max-width: 300px; /* Further reduce the search bar size */
+    margin: 10px 0; /* Add vertical spacing */
+    margin-left: 40px;
+  }
+
+  .iconGroup {
+    justify-content: center;
+    gap: 5px; /* Adjust spacing for smaller screens */
+  }
+}
+
+@media (max-width: 480px) {
+  .navbarContainer {
+    padding: 0.5rem; /* Reduce padding */
+  }
+
+  .searchInput {
+    font-size: 0.9rem; /* Adjust font size */
+  }
+
+  .searchButton {
+    padding: 8px 15px; /* Adjust padding */
+    font-size: 0.8rem;
+  }
+
+  .icon {
+    font-size: 1.2rem; /* Reduce icon size */
+  }
+
+  .wishlistBadge,
+  .cartBadge {
+    font-size: 12px; /* Adjust badge size */
+    top: -5px;
+    right: -5px;
+  }
 }

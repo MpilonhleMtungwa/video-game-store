@@ -1,27 +1,66 @@
-import React, { useState } from "react";
+import React, { useState, useRef, useEffect } from "react";
 import { Link } from "react-router-dom";
-import { useCart } from "../context/CartContext";
-import styles from "../styles/NavBar.module.css";
-import { FaShoppingCart, FaHeart, FaUser, FaSearch } from "react-icons/fa"; // Font Awesome or similar icon library
+import { useCart } from "../context/CartContext"; // Replace with your CartContext import
+import { fetchGamesBySearch } from "../Api/fetchGameBySearch"; // Ensure this is the correct import path
+import { FaHeart, FaShoppingCart, FaUser, FaSearch } from "react-icons/fa";
+import logo from "../assets/66dd3cbe6cd841588490e048d739941b-free.png";
+import styles from "../styles/NavBar.module.css"; // Adjust based on your CSS modules setup
 
 const NavBar = () => {
   const { cartItems = [], wishlist = [] } = useCart();
   const cartCount = cartItems.length;
   const wishlistCount = wishlist.length;
-  const [query, setQuery] = useState("");
-  const [results, setResults] = useState([]);
-  const [searchQuery, setSearchQuery] = useState("");
+
+  const [searchQuery, setSearchQuery] = useState(""); // The user's input in the search bar
+  const [results, setResults] = useState([]); // To store search results
+  const [showResults, setShowResults] = useState(false); // For dropdown visibility
+  const searchRef = useRef(null); // Reference for detecting outside clicks
+
+  // Fetch games for autocomplete
+  useEffect(() => {
+    if (searchQuery.trim() === "") {
+      setResults([]);
+      return;
+    }
+
+    const fetchAutocompleteResults = async () => {
+      try {
+        const games = await fetchGamesBySearch(searchQuery);
+        setResults(games);
+        setShowResults(true);
+      } catch (error) {
+        console.error("Error fetching search results:", error);
+      }
+    };
+
+    // Debounce to reduce API calls
+    const debounceTimeout = setTimeout(fetchAutocompleteResults, 300);
+
+    return () => clearTimeout(debounceTimeout);
+  }, [searchQuery]);
+
+  // Close the dropdown when clicking outside
+  useEffect(() => {
+    const handleClickOutside = (event) => {
+      if (searchRef.current && !searchRef.current.contains(event.target)) {
+        setShowResults(false);
+      }
+    };
+
+    document.addEventListener("click", handleClickOutside);
+
+    return () => {
+      document.removeEventListener("click", handleClickOutside);
+    };
+  }, []);
 
   const handleSearch = async (e) => {
-    e.preventDefault();
-    if (query.trim() === "") return;
+    e.preventDefault(); // Prevent the default form submission
+    if (searchQuery.trim() === "") return; // Ensure the input is not empty
 
     try {
-      const response = await fetch(
-        `https://api.rawg.io/api/games?key=${process.env.REACT_APP_RAWG_API_KEY}&search=${query}`
-      );
-      const data = await response.json();
-      setResults(data.results);
+      const games = await fetchGamesBySearch(searchQuery); // Use the exported API function
+      setResults(games); // Update the results state with the fetched games
     } catch (error) {
       console.error("Error fetching search results:", error);
     }
@@ -29,9 +68,14 @@ const NavBar = () => {
 
   return (
     <div className={styles.navbarContainer}>
-      <div className={styles.logo}>GameShop</div>
+      <div className={styles.logo}>
+        <Link to="/">
+          <img src={logo} alt="GameShop Logo" className={styles.logoImage} />
+        </Link>
+      </div>
 
-      <div className={styles.searchContainer}>
+      {/* Search Bar */}
+      <div ref={searchRef} className={styles.searchContainer}>
         <FaSearch className={styles.searchIcon} />
         <input
           type="text"
@@ -39,10 +83,34 @@ const NavBar = () => {
           value={searchQuery}
           onChange={(e) => setSearchQuery(e.target.value)}
           className={styles.searchInput}
+          onFocus={() => setShowResults(true)} // Open results on focus
         />
-        <button onClick={handleSearch}>Search</button>
-      </div>
 
+        {/* Autocomplete Dropdown */}
+        {showResults && results.length > 0 && (
+          <div className={styles.searchResults}>
+            <ul>
+              {results.map((game) => (
+                <li key={game.id}>
+                  <Link
+                    to={`/game/${game.id}`}
+                    className={styles.searchResultLink}
+                    onClick={() => setShowResults(false)} // Close dropdown on selection
+                  >
+                    <img
+                      src={game.background_image}
+                      alt={game.name}
+                      className={styles.resultImage}
+                    />
+                    <span>{game.name}</span>
+                  </Link>
+                </li>
+              ))}
+            </ul>
+          </div>
+        )}
+      </div>
+      {/* Icons for wishlist and cart */}
       <div className={styles.iconGroup}>
         <div className={styles.icon}>
           <Link to="/wishlist">
@@ -62,25 +130,14 @@ const NavBar = () => {
         </div>
       </div>
 
+      {/* Login/Register */}
       <div className={styles.loginRegister}>
         <Link to="/login">
           <FaUser />
         </Link>
-        <button onClick={() => console.log("Register clicked")}>
-          Register
-        </button>
       </div>
 
-      {/* Display search results */}
-      {results.length > 0 && (
-        <div className={styles.searchResults}>
-          <ul>
-            {results.map((game) => (
-              <li key={game.id}>{game.name}</li>
-            ))}
-          </ul>
-        </div>
-      )}
+      {/* Search Results */}
     </div>
   );
 };

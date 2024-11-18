@@ -10,6 +10,22 @@ const Slideshow = ({ games = [] }) => {
   const { addToCart, addToWishlist, setCartItems } = useCart();
   const sliderRef = useRef();
   const [activeSlide, setActiveSlide] = useState(0);
+
+  const calculatePrice = (releaseDate) => {
+    const releaseYear = new Date(releaseDate).getFullYear();
+
+    if (releaseYear >= 2022) return 899;
+    if (releaseYear >= 2018) return 599;
+    if (releaseYear >= 2010) return 299;
+    if (releaseYear >= 2000) return 149;
+    return 100;
+  };
+
+  const gamesWithPrices = games.map((game) => ({
+    ...game,
+    price: calculatePrice(game.released),
+  }));
+
   const settings = {
     dots: false,
     infinite: true,
@@ -26,7 +42,14 @@ const Slideshow = ({ games = [] }) => {
 
   const handleAddToCart = (game) => {
     if (addToCart) {
-      addToCart(game);
+      // Send the relevant game details to the cart
+      const cartItem = {
+        id: game.id,
+        title: game.name,
+        price: game.price, // Assuming `price` is part of the `game` object
+        image: game.background_image,
+      };
+      addToCart(cartItem);
     }
   };
 
@@ -38,7 +61,7 @@ const Slideshow = ({ games = [] }) => {
     <div className={styles.container}>
       <div className={styles.slideshow}>
         <Slider {...settings} ref={sliderRef}>
-          {games.map((game) => (
+          {gamesWithPrices.map((game) => (
             <div key={game.id} className={styles.slideContainer}>
               <Link to={`/game/${game.id}`} className={styles.slideLink}>
                 <div
@@ -48,9 +71,8 @@ const Slideshow = ({ games = [] }) => {
                   <div className={styles.overlay} />
                   <div className={styles.slideContent}>
                     <h2 className={styles.gameTitle}>{game.name}</h2>
-                    <p className={styles.gameDescription}>
-                      Short description here...
-                    </p>
+                    <p className={styles.gamePrice}>R {game.price}</p>{" "}
+                    {/* Display price */}
                     <button
                       className={styles.addToCartButton}
                       onClick={(e) => {

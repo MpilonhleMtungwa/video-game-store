@@ -60,3 +60,50 @@
 .section button:hover {
   background-color: #333;
 }
+
+/* Responsive adjustments */
+@media (max-width: 768px) {
+  .sidebar {
+    width: 200px;
+    padding: 15px;
+  }
+
+  .collapsed {
+    width: 40px;
+  }
+
+  .section h3 {
+    font-size: 1em;
+  }
+
+  .sidebar-button {
+    padding: 8px;
+  }
+
+  .section button {
+    padding: 6px;
+  }
+}
+
+@media (max-width: 480px) {
+  .sidebar {
+    width: 150px;
+    padding: 10px;
+  }
+
+  .collapsed {
+    width: 30px;
+  }
+
+  .section h3 {
+    font-size: 0.9em;
+  }
+
+  .sidebar-button {
+    padding: 6px;
+  }
+
+  .section button {
+    padding: 4px;
+  }
+}
