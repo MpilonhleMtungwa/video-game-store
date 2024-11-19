@@ -34,7 +34,7 @@ const Slideshow = ({ games = [] }) => {
     slidesToScroll: 1,
     arrows: true,
     autoplay: true,
-    autoplaySpeed: 4000, // Adjust the timer duration here (3 seconds)
+    autoplaySpeed: 4000, // Adjust the timer duration
     beforeChange: (oldIndex, newIndex) => setActiveSlide(newIndex),
     nextArrow: <SampleNextArrow />,
     prevArrow: <SamplePrevArrow />,
@@ -42,11 +42,11 @@ const Slideshow = ({ games = [] }) => {
 
   const handleAddToCart = (game) => {
     if (addToCart) {
-      // Send the relevant game details to the cart
+      // Send the game details to the cart
       const cartItem = {
         id: game.id,
         title: game.name,
-        price: game.price, // Assuming `price` is part of the `game` object
+        price: game.price,
         image: game.background_image,
       };
       addToCart(cartItem);

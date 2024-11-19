@@ -1,10 +1,10 @@
 import React, { useState, useRef, useEffect } from "react";
 import { Link } from "react-router-dom";
-import { useCart } from "../context/CartContext"; // Replace with your CartContext import
-import { fetchGamesBySearch } from "../Api/fetchGameBySearch"; // Ensure this is the correct import path
+import { useCart } from "../context/CartContext";
+import { fetchGamesBySearch } from "../Api/fetchGameBySearch";
 import { FaHeart, FaShoppingCart, FaUser, FaSearch } from "react-icons/fa";
 import logo from "../assets/66dd3cbe6cd841588490e048d739941b-free.png";
-import styles from "../styles/NavBar.module.css"; // Adjust based on your CSS modules setup
+import styles from "../styles/NavBar.module.css";
 
 const NavBar = () => {
   const { cartItems = [], wishlist = [] } = useCart();
@@ -14,7 +14,7 @@ const NavBar = () => {
   const [searchQuery, setSearchQuery] = useState(""); // The user's input in the search bar
   const [results, setResults] = useState([]); // To store search results
   const [showResults, setShowResults] = useState(false); // For dropdown visibility
-  const searchRef = useRef(null); // Reference for detecting outside clicks
+  const searchRef = useRef(null); //detecting outside clicks
 
   // Fetch games for autocomplete
   useEffect(() => {
@@ -33,7 +33,7 @@ const NavBar = () => {
       }
     };
 
-    // Debounce to reduce API calls
+    // reduce api calls
     const debounceTimeout = setTimeout(fetchAutocompleteResults, 300);
 
     return () => clearTimeout(debounceTimeout);
@@ -56,11 +56,11 @@ const NavBar = () => {
 
   const handleSearch = async (e) => {
     e.preventDefault(); // Prevent the default form submission
-    if (searchQuery.trim() === "") return; // Ensure the input is not empty
+    if (searchQuery.trim() === "") return; // Ensure input is not empty
 
     try {
-      const games = await fetchGamesBySearch(searchQuery); // Use the exported API function
-      setResults(games); // Update the results state with the fetched games
+      const games = await fetchGamesBySearch(searchQuery); // Use the API function
+      setResults(games); // Update the results with the fetched games
     } catch (error) {
       console.error("Error fetching search results:", error);
     }
@@ -136,8 +136,6 @@ const NavBar = () => {
           <FaUser />
         </Link>
       </div>
-
-      {/* Search Results */}
     </div>
   );
 };

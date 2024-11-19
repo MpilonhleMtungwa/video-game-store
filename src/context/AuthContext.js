@@ -10,13 +10,13 @@ export const AuthProvider = ({ children }) => {
     const token = localStorage.getItem("authToken");
 
     if (token) {
-      // Optionally verify the token with your server here
+      // verify the token with the server
       setIsAuthenticated(true);
     } else {
       setIsAuthenticated(false);
     }
 
-    setLoading(false); // Set loading to false once auth check completes
+    setLoading(false); 
   }, []);
 
   return (

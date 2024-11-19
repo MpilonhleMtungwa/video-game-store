@@ -11,10 +11,10 @@ export const fetchGameDetails = async (category = "") => {
     } else if (category === "recently_updated") {
       ordering = "-updated"; // Sort by most recently updated
     } else {
-      ordering = ""; // For genre-based categories, no ordering needed
+      ordering = ""; // For genre categories
     }
     const requestUrl = `${RAWG_API_BASE_URL}?key=${process.env.REACT_APP_RAWG_API_KEY}&genres=${category}&page_size=10`;
-    console.log("Request URL:", requestUrl); // Log the full request URL
+    console.log("Request URL:", requestUrl); // Log full request URL
 
     const response = await axios.get(RAWG_API_BASE_URL, {
       params: {
@@ -29,7 +29,13 @@ export const fetchGameDetails = async (category = "") => {
     });
 
     console.log("RAWG API Full Response:", response); // Logs full response object
-    return response.data.results;
+
+    // Filter out adult games
+    const nonAdultGames = response.data.results.filter(
+      (game) => !game.esrb_rating || game.esrb_rating.name !== "Adults Only"
+    );
+
+    return nonAdultGames;
   } catch (error) {
     console.error(
       "Error fetching game details from RAWG:",
@@ -38,30 +44,3 @@ export const fetchGameDetails = async (category = "") => {
     return [];
   }
 };
-
-/*
-export const fetchGameDetails = async (query) => {
-  try {
-    const requestUrl = `${RAWG_API_BASE_URL}?key=${process.env.REACT_APP_RAWG_API_KEY}&search=${query}&page_size=10`;
-    console.log("Request URL:", requestUrl); // Log the full request URL
-
-    const response = await axios.get(RAWG_API_BASE_URL, {
-      params: {
-        key: process.env.REACT_APP_RAWG_API_KEY,
-        genres: category,
-
-        page_size: 6,
-      },
-    });
-
-    console.log("RAWG API Full Response:", response); // Logs full response object
-    return response.data.results;
-  } catch (error) {
-    console.error(
-      "Error fetching game details from RAWG:",
-      error.response?.data || error.message
-    );
-    return [];
-  }
-};
-*/

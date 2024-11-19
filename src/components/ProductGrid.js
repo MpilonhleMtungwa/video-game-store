@@ -3,8 +3,8 @@ import ProductCard from "./ProductCard";
 import styles from "../styles/ProductGrid.module.css";
 import { fetchRawgGameData, fetchSteamPriceData } from "../Api/api";
 
-const USD_TO_ZAR_API_URL = "https://api.exchangerate-api.com/v4/latest/USD"; // Replace with your API URL
 
+// show games in a grid using product card
 const ProductGrid = ({ games }) => {
   return (
     <div className={styles.gridContainer}>

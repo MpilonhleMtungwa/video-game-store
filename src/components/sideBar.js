@@ -15,6 +15,7 @@ import {
   GiGlobe,
   GiDungeonGate,
   GiSoccerBall,
+  GiConsoleController,
 } from "react-icons/gi"; // Genre icons from react-icons
 import { CgCardSpades } from "react-icons/cg";
 import styles from "../styles/sidebar.module.css";
@@ -112,7 +113,7 @@ const Sidebar = ({ onPlatformSelect, onGenreSelect, onLoadAll }) => {
           <div className={styles.section}>
             <h3>All Games</h3>
             <button onClick={() => handleLoadAllGames("/games/all")}>
-              <FaWindows className={styles.icon} /> Load All Games
+              <GiConsoleController className={styles.icon} /> Load All Games
             </button>
           </div>
         </>

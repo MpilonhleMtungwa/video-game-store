@@ -24,7 +24,6 @@ const LoginForm = () => {
       localStorage.setItem("token", token); // Store token in localStorage
       setIsAuthenticated(true);
 
-      // If `location.state.from` is defined, redirect there; otherwise, go to homepage
       const redirectTo = location.state?.from?.pathname || "/";
       navigate(redirectTo);
     } catch (error) {

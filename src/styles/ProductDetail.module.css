@@ -49,8 +49,8 @@
 
 .mediaAndPurchase {
   display: flex;
-  flex-wrap: wrap; /* Allows stacking on smaller screens */
-  gap: 20px; /* Adds spacing between sections */
+  flex-wrap: wrap; 
+  gap: 20px; 
   align-items: flex-start;
 }
 
@@ -207,8 +207,8 @@
 /* Mobile Responsiveness */
 
 @media (max-width: 768px) {
-  /* Stack the media and purchase sections vertically */
+  
   .mediaAndPurchase {
-    flex-direction: column; /* Stack sections vertically */
+    flex-direction: column; 
   }
 }

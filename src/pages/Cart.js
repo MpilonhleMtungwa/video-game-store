@@ -6,7 +6,7 @@ import { Link } from "react-router-dom";
 const Cart = () => {
   const { cartItems, removeFromCart, subtotal, setCartItems } = useCart();
 
-  // Load cart items from local storage when the component mounts
+  // Load cart items from the local storage
   useEffect(() => {
     const savedCartItems = JSON.parse(localStorage.getItem("cartItems")) || [];
     setCartItems(savedCartItems);
@@ -62,15 +62,15 @@ const Cart = () => {
           <h2>Games Summary</h2>
           <div className={styles.summarydetails}>
             <div className={styles.summaryitem}>
-              <span>Price</span>
+              <span>Subtotal</span>
               <span>R {subtotal}</span>
             </div>
             <div className={styles.summaryitem}>
-              <span>Taxes</span>
+              <span>Shipping</span>
               <span>Calculated at Checkout</span>
             </div>
             <div className="summary-item total">
-              <span>Subtotal</span>
+              <span>Total</span>
               <br></br>
               <span>R {calculateTotalPrice()}</span>
             </div>

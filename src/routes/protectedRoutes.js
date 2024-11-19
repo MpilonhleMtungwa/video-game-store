@@ -11,7 +11,7 @@ const ProtectedRoute = ({ children }) => {
   return isAuthenticated ? (
     children
   ) : (
-    // Redirect to login with the previous location saved in `state`
+    // Redirect to login with previous location saved in state
     <Navigate to="/login" state={{ from: location }} />
   );
 };

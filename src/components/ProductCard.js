@@ -2,6 +2,7 @@ import React, { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import styles from "../styles/ProductCard.module.css";
 
+// calculate price based on year release
 const calculatePrice = (releaseYear) => {
   if (releaseYear >= 2022) return 899;
   if (releaseYear >= 2018) return 599;
@@ -21,7 +22,7 @@ const ProductCard = ({ game }) => {
     discount,
   } = game;
 
-  const releaseDate = game.released || game.releaseDate; // Adjust based on the property name in your data
+  const releaseDate = game.released || game.releaseDate;
   const releaseYear = releaseDate ? new Date(releaseDate).getFullYear() : null;
 
   // Check if the releaseYear was calculated correctly

@@ -1,12 +1,15 @@
 import React, { useEffect, useState } from "react";
+import { useNavigate } from "react-router-dom";
 import { fetchGameDetails } from "../services/rawgService";
 import { fetchGamePrices } from "../services/cheapSharkService";
+import { Link } from "react-router-dom";
 import Slideshow from "../components/Slideshow";
 import ProductGrid from "../components/ProductGrid";
 import Sidebar from "../components/sideBar";
 import NavBar from "../components/NavBar";
 import styles from "../styles/Homepage.module.css";
 import ProductCard from "../components/ProductCard";
+import { FaCircleArrowRight } from "react-icons/fa6";
 
 const HomePage = () => {
   const [mostPopularGames, setMostPopularGames] = useState([]);
@@ -18,6 +21,7 @@ const HomePage = () => {
   const [adventureGames, setAdventureGames] = useState([]);
   const [filteredGames, setFilteredGames] = useState([]);
   const [loading, setLoading] = useState(true);
+  const navigate = useNavigate();
 
   const handlePlatformSelect = async (platform) => {
     const filteredGames = await fetchGameDetails({ platform });
@@ -27,6 +31,10 @@ const HomePage = () => {
   const handleGenreSelect = async (genre) => {
     const filteredGames = await fetchGameDetails({ genre });
     setFilteredGames(filteredGames);
+  };
+
+  const handleGenreClick = (genre) => {
+    navigate(`/games/${genre}`);
   };
 
   const handleLoadAll = async () => {
@@ -69,8 +77,6 @@ const HomePage = () => {
 
     loadGames();
   }, []);
-
-  if (loading) return <div>Loading games...</div>;
 
   return (
     <div className={styles.pageContainer}>

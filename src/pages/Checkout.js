@@ -49,10 +49,17 @@ const CheckoutForm = () => {
         <h3>Cart</h3>
         <ul>
           {cartItems.map((item) => (
-            <li key={item.id}>
-              <span>{item.title}</span>
-              <br />
-              <span>R{item.price}</span>
+            <li key={item.id} className={styles.cartItem}>
+              <img
+                src={item.image}
+                alt={item.title}
+                className={styles.gameImage}
+              />
+              <div className={styles.itemDetails}>
+                <span className={styles.gameTitle}>{item.title}</span>
+                <br />
+                <span className={styles.gamePrice}>R{item.price}</span>
+              </div>
             </li>
           ))}
         </ul>

@@ -2,8 +2,8 @@
   display: flex;
   justify-content: center;
   align-items: center;
-  min-height: 100vh; /* Full viewport height */
-  padding: 20px; /* Optional: For some spacing around the form */
+  min-height: 100vh;
+  padding: 20px;
 }
 
 .formwrapper {

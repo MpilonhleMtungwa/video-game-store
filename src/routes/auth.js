@@ -12,4 +12,4 @@ router.post("/register", registerUser);
 // Login route
 router.post("/login", loginUser);
 
-module.exports = router; // Make sure to export the router
+module.exports = router;

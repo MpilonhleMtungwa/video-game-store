@@ -7,7 +7,7 @@ export const CartProvider = ({ children }) => {
   const [wishlist, setWishlist] = useState([]);
 
   useEffect(() => {
-    // Load cart items from localStorage on first render
+    // Load the cart items from localStorage
     const savedCartItems = JSON.parse(localStorage.getItem("cartItems")) || [];
     setCartItems(savedCartItems);
   }, []);
@@ -17,7 +17,7 @@ export const CartProvider = ({ children }) => {
     localStorage.setItem("cartItems", JSON.stringify(cartItems));
   }, [cartItems]);
 
-  // Function to add an item to the cart
+  // Add an item to the cart
   const addToCart = (item) => {
     setCartItems((prevItems) => {
       const updatedItems = [...prevItems, item];
@@ -25,6 +25,7 @@ export const CartProvider = ({ children }) => {
     });
   };
 
+  // remove an Item from cart
   const removeFromCart = (id) => {
     setCartItems((prevItems) => {
       return prevItems.filter((item) => item.id !== id);
@@ -33,7 +34,6 @@ export const CartProvider = ({ children }) => {
 
   const clearCart = () => {
     setCartItems([]);
-    // Reset any additional cart-related state here, if applicable
   };
 
   const subtotal = cartItems.reduce((total, item) => total + item.price, 0);

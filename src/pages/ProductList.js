@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { useParams } from "react-router-dom";
-import ProductCard from "../components/ProductCard"; // Assuming you already have a ProductCard component
+import ProductCard from "../components/ProductCard";
 import NavBar from "../components/NavBar";
 import Sidebar from "../components/sideBar";
 import styles from "../styles/ProductList.module.css";

@@ -25,7 +25,6 @@ const AllGames = () => {
 
   return (
     <div className={styles.pageContainer}>
-      {/* Navbar at the top */}
       <NavBar />
       <div className={styles.mainContainer}>
         <Sidebar />

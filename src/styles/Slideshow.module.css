@@ -128,40 +128,40 @@
 
 @media (max-width: 768px) {
   .slideshow {
-    height: 250px; /* Smaller height for tablets and mobile */
+    height: 250px; 
   }
 
   .slideContent {
-    padding: 30px; /* Reduce padding */
-    font-size: 14px; /* Adjust font size */
+    padding: 30px; 
+    font-size: 14px; 
   }
 
   .nextArrow,
   .prevArrow {
-    font-size: 18px; /* Reduce arrow size */
-    padding: 5px; /* Smaller padding */
+    font-size: 18px; 
+    padding: 5px; 
   }
 
   .dot {
-    width: 8px; /* Smaller dots */
+    width: 8px; 
     height: 8px;
   }
 }
 
-/* Media query for screens smaller than 480px */
+
 @media (max-width: 480px) {
   .slideshow {
-    height: 200px; /* Even smaller height for phones */
+    height: 200px; 
   }
 
   .slideContent {
-    padding: 20px; /* Further reduce padding */
-    font-size: 12px; /* Smaller font size for compact layout */
+    padding: 20px; 
+    font-size: 12px; 
   }
 
   .nextArrow,
   .prevArrow {
-    font-size: 16px; /* Further reduce arrow size */
-    padding: 4px; /* Adjust padding */
+    font-size: 16px; 
+    padding: 4px; 
   }
 }

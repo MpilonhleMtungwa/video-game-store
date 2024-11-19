@@ -21,9 +21,9 @@
 }
 
 .logoImage {
-  width: 40px; /* Adjust width as needed */
-  height: auto; /* Maintain aspect ratio */
-  cursor: pointer; /* Makes the logo look clickable */
+  width: 40px; 
+  height: auto; 
+  cursor: pointer; 
 }
 
 .searchContainer {
@@ -35,7 +35,7 @@
   border-radius: 30px; /* Rounded corners */
   padding: 5px 15px;
   width: 100%;
-  max-width: 600px; /* Adjust width as needed */
+  max-width: 600px; 
   border: 1px solid #ccc;
 }
 
@@ -50,7 +50,7 @@
   width: 100%;
   font-size: 1rem;
   color: #333;
-  background-color: transparent; /* Makes it blend with the container */
+  background-color: transparent; 
 }
 
 .searchResults {
@@ -133,7 +133,7 @@
   display: flex;
   gap: 5px;
   margin-left: 0;
-  font-size: 22px;
+  font-size: 20px;
 }
 
 .loginRegister button {
@@ -145,7 +145,7 @@
   border-radius: 5px;
 }
 
-/* Media Queries for Responsiveness */
+/* Media Queries Responsiveness */
 @media (max-width: 768px) {
   .navbarContainer {
     flex-wrap: wrap; /* Allow items to wrap if necessary */
@@ -159,7 +159,7 @@
 
   .iconGroup {
     justify-content: center;
-    gap: 5px; /* Adjust spacing for smaller screens */
+    gap: 9px; /* Adjust spacing for smaller screens */
   }
 }
 

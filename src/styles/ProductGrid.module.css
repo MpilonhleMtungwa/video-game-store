@@ -3,7 +3,7 @@
   background-color: black;
   display: grid;
   grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
-  gap: 70px;
+  gap: 60px;
   justify-items: center;
   padding: 40px;
 }

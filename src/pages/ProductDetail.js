@@ -53,7 +53,7 @@ const ProductDetail = () => {
             "Platform not available",
         });
 
-        // Set media items (trailer + screenshots)
+        // Set media items screenshots and trailer
         const trailer = rawgData.clip?.clip
           ? { type: "video", url: rawgData.clip.clip }
           : null;
@@ -68,8 +68,6 @@ const ProductDetail = () => {
           url: screenshot.image,
         }));
         setMediaItems(trailer ? [trailer, ...screenshots] : screenshots);
-
-        // Fetch price information from Steam API (or substitute your API)
       } catch (error) {
         console.error("Error fetching game details or price", error);
       }
@@ -78,11 +76,12 @@ const ProductDetail = () => {
     fetchGameDetails();
   }, [id]);
 
+  //Add to cart Items properties
   const handleAddToCart = () => {
     const cartItem = {
       id: game.id,
-      title: game.title, // make sure this matches `setGame`'s properties
-      image: game.background_image, // ensure it matches the image property in `setGame`
+      title: game.title,
+      image: game.background_image,
       price: priceZAR,
     };
 
