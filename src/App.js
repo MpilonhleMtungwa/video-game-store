@@ -7,6 +7,7 @@ import ProductDetail from "./pages/ProductDetail";
 import PlatformGames from "./pages/Platforms";
 import AllGames from "./pages/allGames";
 import Cart from "./pages/Cart";
+import Wishlist from "./pages/Wishlist";
 
 import Checkout from "./pages/Checkout";
 import Login from "./pages/Login";
@@ -22,12 +23,19 @@ function App() {
         <Route path="/games/platform/:platform" element={<PlatformGames />} />
         <Route path="/games/all" element={<AllGames />} />
         <Route path="/cart" element={<Cart />} />
-
         <Route
           path="/checkout"
           element={
             <ProtectedRoute>
               <Checkout />
+            </ProtectedRoute>
+          }
+        />
+        <Route
+          path="/wishlist"
+          element={
+            <ProtectedRoute>
+              <Wishlist />
             </ProtectedRoute>
           }
         />

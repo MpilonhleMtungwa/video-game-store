@@ -6,14 +6,12 @@ const ProtectedRoute = ({ children }) => {
   const { isAuthenticated, loading } = useAuth();
   const location = useLocation();
 
-  if (loading) return <div>Loading...</div>;
+  if (!isAuthenticated) {
+    return <Navigate to="/login" state={{ from: location }} replace />;
+  }
+  console.log("Redirecting to login from:", location.pathname);
 
-  return isAuthenticated ? (
-    children
-  ) : (
-    // Redirect to login with previous location saved in state
-    <Navigate to="/login" state={{ from: location }} />
-  );
+  return children;
 };
 
 export default ProtectedRoute;

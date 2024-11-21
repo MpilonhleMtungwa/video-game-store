@@ -1,4 +1,5 @@
 import React, { useState, useRef, useEffect } from "react";
+
 import { Link } from "react-router-dom";
 import { useCart } from "../context/CartContext";
 import { fetchGamesBySearch } from "../Api/fetchGameBySearch";
@@ -114,7 +115,7 @@ const NavBar = () => {
       <div className={styles.iconGroup}>
         <div className={styles.icon}>
           <Link to="/wishlist">
-            <FaHeart />
+            <FaHeart fill="white" stroke="red" />
             {wishlistCount > 0 && (
               <span className={styles.wishlistBadge}>{wishlistCount}</span>
             )}
@@ -122,7 +123,7 @@ const NavBar = () => {
         </div>
         <div className={styles.icon}>
           <Link to="/cart">
-            <FaShoppingCart />
+            <FaShoppingCart fill="white" stroke="red" />
             {cartCount > 0 && (
               <span className={styles.cartBadge}>{cartCount}</span>
             )}
@@ -133,7 +134,7 @@ const NavBar = () => {
       {/* Login/Register */}
       <div className={styles.loginRegister}>
         <Link to="/login">
-          <FaUser />
+          <FaUser fill="white" />
         </Link>
       </div>
     </div>

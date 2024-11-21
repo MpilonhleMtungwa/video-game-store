@@ -10,6 +10,7 @@ app.use(express.json());
 const PORT = process.env.PORT || 5000;
 
 const authRoutes = require("./src/routes/auth");
+const wishlistRoutes = require("./routes/wishlist");
 
 // Connect to MongoDB
 mongoose.connect(process.env.MONGO_URI, {
@@ -19,6 +20,7 @@ mongoose.connect(process.env.MONGO_URI, {
 
 // Set up routes
 app.use("/auth", authRoutes);
+app.use("/wishlist", wishlistRoutes);
 
 app.get("/api/game-details", async (req, res) => {
   try {

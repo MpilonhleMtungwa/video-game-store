@@ -49,8 +49,8 @@
 
 .mediaAndPurchase {
   display: flex;
-  flex-wrap: wrap; 
-  gap: 20px; 
+  flex-wrap: wrap;
+  gap: 20px;
   align-items: flex-start;
 }
 
@@ -194,6 +194,23 @@
   background-color: #3f51b5;
 }
 
+.confirmation {
+  margin-top: 10px;
+  padding: 10px;
+  background-color: #28a745;
+  color: white;
+  border-radius: 5px;
+  text-align: center;
+}
+
+.confirmation button {
+  background: transparent;
+  color: white;
+  text-decoration: underline;
+  border: none;
+  cursor: pointer;
+}
+
 .gameDetails {
   margin-top: 20px;
   font-size: 18px;
@@ -207,8 +224,7 @@
 /* Mobile Responsiveness */
 
 @media (max-width: 768px) {
-  
   .mediaAndPurchase {
-    flex-direction: column; 
+    flex-direction: column;
   }
 }

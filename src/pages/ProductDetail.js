@@ -2,7 +2,10 @@ import React, { useState, useEffect, useContext } from "react";
 import { useParams } from "react-router-dom";
 import styles from "../styles/ProductDetail.module.css";
 import NavBar from "../components/NavBar";
+import { useAuth } from "../context/AuthContext";
 import { useCart } from "../context/CartContext";
+import { useNavigate, useLocation } from "react-router-dom";
+import { useWishlist } from "../context/WishlistContext";
 import { fetchRawgGameData, fetchSteamPriceData } from "../Api/api";
 
 const calculatePrice = (releaseYear) => {
@@ -14,7 +17,12 @@ const calculatePrice = (releaseYear) => {
 };
 
 const ProductDetail = () => {
-  const { addToCart, addToWishlist, setCartItems } = useCart();
+  const { isAuthenticated } = useAuth();
+  const navigate = useNavigate();
+  const location = useLocation();
+  const { addToCart, setCartItems } = useCart();
+  const { addToWishlist } = useWishlist();
+  const [showConfirmation, setShowConfirmation] = useState(false);
   const { id } = useParams();
   const [game, setGame] = useState({});
 
@@ -91,13 +99,19 @@ const ProductDetail = () => {
   };
 
   const handleAddToWishlist = () => {
-    const wishlistItem = {
-      id: game.id,
-      title: game.title,
-      image: game.background_image,
-      price: priceZAR,
-    };
-    addToWishlist(wishlistItem); // Add the item to the wishlist
+    if (!isAuthenticated) {
+      // Redirect to login page with the current page's path
+      navigate("/login", { state: { from: location } });
+    } else {
+      addToWishlist({
+        id: game.id,
+        title: game.title,
+        image: game.background_image,
+        price: priceZAR,
+      });
+      setShowConfirmation(true);
+      setTimeout(() => setShowConfirmation(false), 3000);
+    }
   };
 
   const handleNextSlide = () => {
@@ -174,6 +188,14 @@ const ProductDetail = () => {
             <button onClick={handleAddToWishlist} className={styles.buyButton}>
               Add to Wishlist
             </button>
+            {showConfirmation && (
+              <div className={styles.confirmation}>
+                Added to wishlist!{" "}
+                <button onClick={() => navigate("/wishlist")}>
+                  Go to Wishlist
+                </button>
+              </div>
+            )}
             <button onClick={handleAddToCart} className={styles.addButton}>
               Add To Cart
             </button>
