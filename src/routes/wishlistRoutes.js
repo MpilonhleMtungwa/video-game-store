@@ -1,16 +1,22 @@
 const express = require("express");
 const User = require("../models/User");
-const authMiddleware = require("../middleware/authMiddleware"); // Add your auth middleware for authentication
+const authMiddleware = require("../middleware/authMiddlewear"); // Add your auth middleware for authentication
 const router = express.Router();
 
 // Get the user's wishlist
-router.get("/", authMiddleware, async (req, res) => {
+router.get("/wishlist", authMiddleware, async (req, res) => {
   try {
-    const user = await User.findById(req.user.id); // Assume req.user is set by authentication middleware
-    if (!user) return res.status(404).json({ message: "User not found" });
+    const userId = req.user.id; // Get the logged-in user's ID
 
-    res.status(200).json(user.wishlist);
+    // Find the user and return their wishlist
+    const user = await User.findById(userId);
+    if (!user) {
+      return res.status(404).json({ message: "User not found" });
+    }
+
+    res.status(200).json(user.wishlist); // Send back the user's wishlist
   } catch (error) {
+    console.error("Error fetching wishlist:", error);
     res
       .status(500)
       .json({ message: "Error fetching wishlist", error: error.message });
@@ -18,32 +24,32 @@ router.get("/", authMiddleware, async (req, res) => {
 });
 
 // Add an item to the user's wishlist
-router.post("/", authMiddleware, async (req, res) => {
-  const { gameId, title, image, price } = req.body;
-
-  if (!gameId || !title || !price) {
-    return res.status(400).json({ message: "Missing required fields" });
-  }
-
+router.post("/wishlist", authMiddleware, async (req, res) => {
   try {
-    const user = await User.findById(req.user.id);
-    if (!user) return res.status(404).json({ message: "User not found" });
+    const { game } = req.body; // Extract the game object from the request body
+    const userId = req.user.id; // Assuming `req.user.id` comes from a logged-in user (authenticated)
 
-    // Check if the item already exists in the wishlist
-    const existingItem = user.wishlist.find((item) => item.gameId === gameId);
-    if (existingItem) {
-      return res.status(400).json({ message: "Item already in wishlist" });
+    // Find the user and add the game to their wishlist
+    const user = await User.findById(userId);
+    if (!user) {
+      return res.status(404).json({ message: "User not found" });
     }
 
-    // Add the new game to the wishlist
-    user.wishlist.push({ gameId, title, image, price });
+    // Check if the game is already in the wishlist
+    if (user.wishlist.some((item) => item.id === game.id)) {
+      return res.status(400).json({ message: "Game already in wishlist" });
+    }
+
+    // Add the game to the wishlist
+    user.wishlist.push(game);
     await user.save();
 
-    res.status(200).json(user.wishlist);
+    res.status(200).json({ message: "Game added to wishlist" });
   } catch (error) {
+    console.error("Error adding to wishlist:", error);
     res
       .status(500)
-      .json({ message: "Error adding to wishlist", error: error.message });
+      .json({ message: "Error adding game to wishlist", error: error.message });
   }
 });
 
@@ -66,3 +72,5 @@ router.delete("/:gameId", authMiddleware, async (req, res) => {
       .json({ message: "Error removing from wishlist", error: error.message });
   }
 });
+
+module.exports = router;

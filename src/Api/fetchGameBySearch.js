@@ -14,7 +14,7 @@ export const fetchGamesBySearch = async (query) => {
     const filteredResults = data.results.filter(
       (game) =>
         !game.esrb_rating?.name?.toLowerCase().includes("adult") && // Exclude adult games
-        game.metacritic >= 40 // Example: Only include games with a Metacritic score of 50 or higher
+        game.metacritic >= 40 // Only include games with a Metacritic score of 50 or higher
     );
 
     return filteredResults;

@@ -20,13 +20,13 @@ export const fetchRawgGameData = async (id = "") => {
           releaseDate: data.released,
           platform:
             data.platforms?.map((p) => p.platform.name).join(", ") || "Unknown",
-          priceZAR: data.price || "N/A", // Mock price field for demo
+          priceZAR: data.price || "N/A", // Mock price field
         }
       : data.results.map((game) => ({
           id: game.id,
           name: game.name,
           background_image: game.background_image,
-          priceZAR: game.price || "N/A", // Mock price field for demo
+          priceZAR: game.price || "N/A", // Mock price field
         }));
   } catch (error) {
     console.error("Failed to fetch RAWG game data:", error);

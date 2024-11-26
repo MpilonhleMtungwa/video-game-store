@@ -1,4 +1,5 @@
 import React, { useState, useEffect, useContext } from "react";
+import axios from "axios";
 import { useParams } from "react-router-dom";
 import styles from "../styles/ProductDetail.module.css";
 import NavBar from "../components/NavBar";
@@ -98,21 +99,45 @@ const ProductDetail = () => {
     console.log(cartItem);
   };
 
-  const handleAddToWishlist = () => {
-    if (!isAuthenticated) {
-      // Redirect to login page with the current page's path
-      navigate("/login", { state: { from: location } });
-    } else {
-      addToWishlist({
-        id: game.id,
-        title: game.title,
-        image: game.background_image,
-        price: priceZAR,
-      });
-      setShowConfirmation(true);
-      setTimeout(() => setShowConfirmation(false), 3000);
+  const handleAddToWishlist = async () => {
+    // Check if the user is logged in
+    const authToken = localStorage.getItem("authToken");
+    if (!authToken) {
+      alert("You need to log in to add items to your wishlist.");
+      navigate("/login"); // Redirect to the login page
+      return; // Exit the function early
+    }
+
+    const wishlistItem = {
+      id: game.id,
+      title: game.title,
+      image: game.background_image,
+      price: priceZAR,
+    };
+
+    try {
+      const response = await axios.post(
+        "http://localhost:5000/api/wishlist",
+        { game: wishlistItem },
+        {
+          headers: {
+            Authorization: `Bearer ${authToken}`, // Add the auth token
+          },
+        }
+      );
+
+      if (response.status === 200) {
+        console.log("Game added to wishlist");
+        alert("Game added to wishlist");
+        setShowConfirmation(true); // Optionally, show a confirmation message
+      }
+    } catch (error) {
+      console.error("Error adding to wishlist:", error.message);
+      alert("Failed to add to wishlist");
     }
   };
+
+  console.log("Game data:", game);
 
   const handleNextSlide = () => {
     setCurrentSlide((prev) => (prev + 1) % mediaItems.length);

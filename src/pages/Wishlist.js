@@ -1,4 +1,5 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
+import axios from "axios";
 import { useAuth } from "../context/AuthContext";
 import { useWishlist } from "../context/WishlistContext";
 import { useCart } from "../context/CartContext"; // Assuming you have a CartContext
@@ -10,16 +11,63 @@ import Sidebar from "../components/sideBar";
 
 const Wishlist = () => {
   const { isAuthenticated } = useAuth();
-  const { wishlist, removeFromWishlist } = useWishlist();
+  const [wishlist, setWishlist] = useState([]);
   const { addToCart } = useCart(); // Function to add items to the cart
+  const [loading, setLoading] = useState(true); // Loading state for fetching data
+  const [error, setError] = useState(null); // For error handling
+
   const location = useLocation();
   const navigate = useNavigate();
 
   useEffect(() => {
-    if (!isAuthenticated) {
-      navigate("/login", { state: { from: location.pathname } });
+    if (isAuthenticated) {
+      // Fetch the wishlist data when the user is authenticated
+      const fetchWishlist = async () => {
+        try {
+          const token = localStorage.getItem("authToken"); // Retrieve token from localStorage
+          const response = await axios.get(
+            "http://localhost:5000/api/wishlist",
+            {
+              headers: {
+                Authorization: `Bearer ${token}`, // Send the token in the request header
+              },
+            }
+          );
+          setWishlist(response.data); // Set the wishlist data
+          setLoading(false); // Stop loading
+        } catch (err) {
+          setError("Error fetching wishlist"); // Set error if something goes wrong
+          setLoading(false); // Stop loading
+        }
+      };
+
+      fetchWishlist();
+    } else {
+      setError("Please log in to view your wishlist");
+      setLoading(false);
     }
-  }, [isAuthenticated, navigate, location]);
+  }, [isAuthenticated]);
+
+  // Function to remove an item from wishlist
+  const handleRemoveItem = async (gameId) => {
+    try {
+      const token = localStorage.getItem("authToken"); // Retrieve token
+      const response = await axios.delete(
+        `http://localhost:5000/wishlist/${gameId}`,
+        {
+          headers: {
+            Authorization: `Bearer ${token}`, // Send the token in the request header
+          },
+        }
+      );
+      setWishlist(response.data); // Update the wishlist after removing item
+    } catch (err) {
+      console.error("Error removing item from wishlist", err);
+    }
+  };
+
+  if (loading) return <div>Loading...</div>;
+  if (error) return <div>{error}</div>;
 
   return (
     <div className={styles.pageContainer}>
@@ -54,7 +102,7 @@ const Wishlist = () => {
                       </button>
                       <button
                         onClick={() => {
-                          removeFromWishlist(item.id);
+                          handleRemoveItem(item.id);
                           alert(`${item.title} removed from wishlist.`);
                         }}
                         className={styles.removeBtn}

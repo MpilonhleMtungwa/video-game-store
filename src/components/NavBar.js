@@ -12,7 +12,7 @@ const NavBar = () => {
   const cartCount = cartItems.length;
   const wishlistCount = wishlist.length;
 
-  const [searchQuery, setSearchQuery] = useState(""); // The user's input in the search bar
+  const [searchQuery, setSearchQuery] = useState("");
   const [results, setResults] = useState([]); // To store search results
   const [showResults, setShowResults] = useState(false); // For dropdown visibility
   const searchRef = useRef(null); //detecting outside clicks
