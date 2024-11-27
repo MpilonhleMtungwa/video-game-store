@@ -7,6 +7,7 @@ import Slideshow from "../components/Slideshow";
 import ProductGrid from "../components/ProductGrid";
 import Sidebar from "../components/sideBar";
 import NavBar from "../components/NavBar";
+import Loader from "../components/Loader";
 import styles from "../styles/Homepage.module.css";
 import ProductCard from "../components/ProductCard";
 import { FaCircleArrowRight } from "react-icons/fa6";
@@ -77,6 +78,8 @@ const HomePage = () => {
 
     loadGames();
   }, []);
+
+  if (loading) return <Loader />;
 
   return (
     <div className={styles.pageContainer}>

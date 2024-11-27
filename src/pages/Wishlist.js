@@ -52,21 +52,27 @@ const Wishlist = () => {
   const handleRemoveItem = async (gameId) => {
     try {
       const token = localStorage.getItem("authToken"); // Retrieve token
+      console.log("Game ID to remove:", gameId);
+
       const response = await axios.delete(
-        `http://localhost:5000/wishlist/${gameId}`,
+        `http://localhost:5000/api/wishlist/${gameId}`,
         {
           headers: {
             Authorization: `Bearer ${token}`, // Send the token in the request header
           },
         }
       );
+
+      console.log("Updated Wishlist Response:", response.data);
       setWishlist(response.data); // Update the wishlist after removing item
     } catch (err) {
-      console.error("Error removing item from wishlist", err);
+      console.error(
+        "Error removing item from wishlist",
+        err.response?.data || err
+      );
     }
   };
 
-  if (loading) return <div>Loading...</div>;
   if (error) return <div>{error}</div>;
 
   return (

@@ -2,6 +2,7 @@ import React, { useState, useEffect, useContext } from "react";
 import axios from "axios";
 import { useParams } from "react-router-dom";
 import styles from "../styles/ProductDetail.module.css";
+import Loader from "../components/Loader";
 import NavBar from "../components/NavBar";
 import { useAuth } from "../context/AuthContext";
 import { useCart } from "../context/CartContext";
@@ -127,8 +128,6 @@ const ProductDetail = () => {
       );
 
       if (response.status === 200) {
-        console.log("Game added to wishlist");
-        alert("Game added to wishlist");
         setShowConfirmation(true); // Optionally, show a confirmation message
       }
     } catch (error) {
@@ -149,7 +148,7 @@ const ProductDetail = () => {
     );
   };
 
-  if (!game.title) return <div>Loading...</div>;
+  if (!game.title) return <Loader />;
 
   return (
     <div className={styles.pageContainer}>

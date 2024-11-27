@@ -54,22 +54,28 @@ router.post("/wishlist", authMiddleware, async (req, res) => {
 });
 
 // Remove an item from the user's wishlist
-router.delete("/:gameId", authMiddleware, async (req, res) => {
+router.delete("/wishlist/:gameId", authMiddleware, async (req, res) => {
   const { gameId } = req.params;
 
   try {
     const user = await User.findById(req.user.id);
-    if (!user) return res.status(404).json({ message: "User not found" });
+    if (!user) {
+      return res.status(404).json({ message: "User not found" });
+    }
 
-    // Remove the game from the wishlist
-    user.wishlist = user.wishlist.filter((item) => item.gameId !== gameId);
+    // Filter out the game to be removed
+    user.wishlist = user.wishlist.filter(
+      (item) => item.id.toString() !== gameId
+    );
+
+    // Save updated wishlist to the database
     await user.save();
 
+    // Return the updated wishlist to the client
     res.status(200).json(user.wishlist);
   } catch (error) {
-    res
-      .status(500)
-      .json({ message: "Error removing from wishlist", error: error.message });
+    console.error("Error removing item from wishlist:", error);
+    res.status(500).json({ message: "Internal server error" });
   }
 });
 

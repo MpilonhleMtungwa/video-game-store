@@ -5,17 +5,26 @@ const AuthContext = createContext();
 
 export const AuthProvider = ({ children }) => {
   const [isAuthenticated, setIsAuthenticated] = useState(false);
-  const [loading, setLoading] = useState(true);
+  const [loading, setLoading] = useState(true); // Tracks token verification status
 
+  // Verify the token on mount
   useEffect(() => {
     const verifyToken = async () => {
       const token = localStorage.getItem("authToken");
       if (token) {
         try {
-          await axios.post("http://localhost:5000/auth/verify-token", {
-            token,
-          });
-          setIsAuthenticated(true);
+          const response = await axios.post(
+            "http://localhost:5000/auth/verify-token",
+            {
+              token,
+            }
+          );
+          if (response.status === 200) {
+            setIsAuthenticated(true);
+          } else {
+            setIsAuthenticated(false);
+            localStorage.removeItem("authToken");
+          }
         } catch (error) {
           console.error("Invalid token:", error.message);
           setIsAuthenticated(false);
@@ -24,25 +33,27 @@ export const AuthProvider = ({ children }) => {
       } else {
         setIsAuthenticated(false);
       }
-      setLoading(false);
+      setLoading(false); // End loading once verification completes
     };
 
     verifyToken();
   }, []);
 
+  // Login function
   const login = (token) => {
-    localStorage.setItem("authToken", token);
-    setIsAuthenticated(true);
+    localStorage.setItem("authToken", token); // Save token in local storage
+    setIsAuthenticated(true); // Set authenticated state to true
   };
 
+  // Logout function
   const logout = () => {
-    localStorage.removeItem("authToken");
-    setIsAuthenticated(false);
+    localStorage.removeItem("authToken"); // Clear token from local storage
+    setIsAuthenticated(false); // Set authenticated state to false
   };
 
   return (
     <AuthContext.Provider value={{ isAuthenticated, login, logout, loading }}>
-      {!loading && children}
+      {!loading && children} {/* Render children only after loading */}
     </AuthContext.Provider>
   );
 };
