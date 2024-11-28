@@ -4,18 +4,25 @@ const RAWG_API_BASE_URL = "https://api.rawg.io/api/games";
 
 export const fetchGameDetails = async (category = "") => {
   try {
+    // Get today's date and calculate the date 30 days ago
+    const today = new Date().toISOString().split("T")[0]; // Format: YYYY-MM-DD
+    const thirtyDaysAgo = new Date();
+    thirtyDaysAgo.setDate(thirtyDaysAgo.getDate() - 7);
+    const startDate = thirtyDaysAgo.toISOString().split("T")[0]; // Format: YYYY-MM-DD
+
     // Configure ordering for "most popular" and "recently updated"
     let ordering;
+    let dateFilter = undefined;
     if (category === "most_popular") {
       ordering = "-metacritic"; // Sort by Metacritic score
     } else if (category === "recently_updated") {
       ordering = "-updated"; // Sort by most recently updated
+      dateFilter = `${startDate},${today}`; // Filter for games updated in the last 30 days
     } else {
       ordering = ""; // For genre categories
     }
-    const requestUrl = `${RAWG_API_BASE_URL}?key=${process.env.REACT_APP_RAWG_API_KEY}&genres=${category}&page_size=10`;
-    console.log("Request URL:", requestUrl); // Log full request URL
 
+    // Make the API request
     const response = await axios.get(RAWG_API_BASE_URL, {
       params: {
         key: process.env.REACT_APP_RAWG_API_KEY,
@@ -25,17 +32,15 @@ export const fetchGameDetails = async (category = "") => {
             : category,
         ordering: ordering || undefined,
         page_size: 4,
+        dates: dateFilter || undefined, // Include the date range for recently updated
+        esrb_rating: "everyone,teen,mature", // Exclude adult games
       },
     });
 
     console.log("RAWG API Full Response:", response); // Logs full response object
 
-    // Filter out adult games
-    const nonAdultGames = response.data.results.filter(
-      (game) => !game.esrb_rating || game.esrb_rating.name !== "Adults Only"
-    );
-
-    return nonAdultGames;
+    // Return the results directly
+    return response.data.results;
   } catch (error) {
     console.error(
       "Error fetching game details from RAWG:",

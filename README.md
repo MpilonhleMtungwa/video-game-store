@@ -1,70 +1,131 @@
-# Getting Started with Create React App
+## 🎮 Video Game eCommerce Website
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+### Description
 
-## Available Scripts
+This is a fully functional video game eCommerce platform designed for users to browse, search, and purchase their favorite games. The site features a sleek interface with categorized game sections, a wishlist, a dynamic shopping cart, user authentication, and a demo checkout system.
 
-In the project directory, you can run:
+Users can explore new and popular games, filter by platform and genre, and manage their cart and wishlist seamlessly. The platform is powered by the RAWG API for fetching game details and includes custom pricing rules to simulate a real-world store experience.
 
-### `npm start`
+## Purpose of the Project
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in your browser.
+I created this project as part of my portfolio to demonstrate my skills in full-stack web development, including:
 
-The page will reload when you make changes.\
-You may also see any lint errors in the console.
+- Frontend development with React for creating a dynamic, responsive, and user-friendly interface.
+- Backend development with Node.js and Express for building APIs and managing authentication.
+- Integration with third-party APIs like RAWG for fetching real-time game data.
+- Database management with MongoDB for user authentication and wishlist persistence.
+- Implementing secure user authentication and authorization with JWT.
+- State management using React Context for the cart and wishlist features.
+- This project showcases my ability to build and deploy full-stack web applications and highlights my skills in problem-solving, API integration, and user experience design.
 
-### `npm test`
+## Features
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+- 🛒 Shopping Cart: Add and manage items in a cart with dynamic pricing.
+- ❤️ Wishlist: Save favorite games and retrieve them on login.
+- 🔍 Search: Search games by title using the RAWG API.
+- 🎮 Game Categories: Browse games by platform and genre.
+- 🖼️ Media Showcase: View game details, including images and videos, on a dedicated product page.
+- 🧾 Checkout System: Demo checkout with dynamic totals and payment confirmation.
+- 🔒 User Authentication: Secure login and registration using JWT.
+- 🌐 Mobile Responsive Design: Optimized for various screen sizes.
 
-### `npm run build`
+## Installation and Setup
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+Prerequisites
+Ensure you have the following installed:
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
+- Node.js
+- MongoDB
+- npm or yarn
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+### Steps to Run the Project
 
-### `npm run eject`
+Clone the repository:
 
-**Note: this is a one-way operation. Once you `eject`, you can't go back!**
+```
+git clone https://github.com/your-repo/video-game-store.git
+cd video-game-store
+```
 
-If you aren't satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
+Install dependencies:
 
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you're on your own.
+`npm install`
 
-You don't have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn't feel obligated to use this feature. However we understand that this tool wouldn't be useful if you couldn't customize it when you are ready for it.
+### Set up environment variables:
 
-## Learn More
+Create a .env file in the root directory and add:
 
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
+```
+PORT=5000
+MONGO_URI=your_mongo_connection_string
+JWT_SECRET=your_jwt_secret
+RAWG_API_KEY=your_rawg_api_key
+RAWG_API_BASE_URL=https://api.rawg.io/api
+```
 
-To learn React, check out the [React documentation](https://reactjs.org/).
+Start the development server:
 
-### Code Splitting
+- Backend:
+  `npm run server`
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
+* Frontend:
+  `npm run client`
 
-### Analyzing the Bundle Size
+Access the app: Open http://localhost:3000 in your browser.
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
+## Technologies Used
 
-### Making a Progressive Web App
+### Frontend:
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
+- React
+- React Context for state management
+- CSS for styling
+- Axios for API requests
 
-### Advanced Configuration
+### Backend:
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
+- Node.js with Express
+- MongoDB with Mongoose
+- JWT for authentication
+- RAWG API for game data
 
-### Deployment
+## Author
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
+Mpilonhle Mtungwa<br>
+💼 Aspiring Software Developer<br>
+📧 mtungwampilonhle@gmail.com<br>
+💻 https://github.com/MpilonhleMtungwa
 
-### `npm run build` fails to minify
+## Future Improvements
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
+- Implement real payment gateway integration.
+- Add a review and rating system for games.
+- Introduce advanced filtering and sorting options.
+- Include multi-language and currency support.
+- Optimize performance for large datasets.
+
+## Screenshots
+
+Include screenshots here if possible! For example:
+
+### Homepage with slideshow and product cards
+
+![HomePage](./src/assets/home%20page.PNG)
+<br>
+![ProductCards](./src/assets/Game%20Cards.PNG)
+
+### Product detail page with media and overview
+
+![Product Detail Page](./src/assets/Product%20Detail%20page.PNG)
+
+### Wishlist
+
+![WishList](./src/assets/wishlist%20page.PNG)
+
+### Cart
+
+![cart](./src/assets/Cart%20game%20Page.PNG)
+
+## License
+
+This project is licensed under the MIT License. Feel free to use and modify it for your purposes.
