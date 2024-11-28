@@ -42,10 +42,6 @@ const ProductCard = ({ game }) => {
         <div className={styles.priceSection}>
           {discount && priceBeforeDiscountZAR ? (
             <>
-              <span className={styles.discount}>{discount}% OFF</span>
-              <span className={styles.priceBeforeDiscount}>
-                ZAR {priceBeforeDiscountZAR}
-              </span>
               <span className={styles.price}>R {priceZAR}</span>
             </>
           ) : (

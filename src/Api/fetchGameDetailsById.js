@@ -1,4 +1,3 @@
-// src/api/fetchGameDetailsById.js
 export const fetchGameDetailsById = async (gameId) => {
   try {
     // Fetch game details from RAWG API

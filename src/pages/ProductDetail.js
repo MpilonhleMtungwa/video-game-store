@@ -8,7 +8,6 @@ import { useAuth } from "../context/AuthContext";
 import { useCart } from "../context/CartContext";
 import { useNavigate, useLocation } from "react-router-dom";
 import { useWishlist } from "../context/WishlistContext";
-import { fetchRawgGameData, fetchSteamPriceData } from "../Api/api";
 
 const calculatePrice = (releaseYear) => {
   if (releaseYear >= 2022) return 899;
@@ -128,7 +127,7 @@ const ProductDetail = () => {
       );
 
       if (response.status === 200) {
-        setShowConfirmation(true); // Optionally, show a confirmation message
+        setShowConfirmation(true); // Show a confirmation message
       }
     } catch (error) {
       console.error("Error adding to wishlist:", error.message);
@@ -136,7 +135,7 @@ const ProductDetail = () => {
     }
   };
 
-  console.log("Game data:", game);
+  
 
   const handleNextSlide = () => {
     setCurrentSlide((prev) => (prev + 1) % mediaItems.length);

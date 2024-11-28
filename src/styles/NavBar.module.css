@@ -32,7 +32,7 @@
   align-items: center;
 
   background-color: #fff;
-  border-radius: 30px; /* Rounded corners */
+  border-radius: 30px;
   padding: 5px 15px;
   width: 100%;
   max-width: 600px;
@@ -40,7 +40,7 @@
 }
 
 .searchIcon {
-  color: #333; /* Color of the search icon */
+  color: #333;
   margin-right: 10px;
 }
 
@@ -145,45 +145,44 @@
   border-radius: 5px;
 }
 
-/* Media Queries Responsiveness */
 @media (max-width: 768px) {
   .navbarContainer {
-    flex-wrap: wrap; /* Allow items to wrap if necessary */
+    flex-wrap: wrap;
   }
 
   .searchContainer {
-    max-width: 300px; /* Further reduce the search bar size */
-    margin: 10px 0; /* Add vertical spacing */
+    max-width: 300px;
+    margin: 10px 0;
     margin-left: 40px;
   }
 
   .iconGroup {
     justify-content: center;
-    gap: 9px; /* Adjust spacing for smaller screens */
+    gap: 9px;
   }
 }
 
 @media (max-width: 480px) {
   .navbarContainer {
-    padding: 0.5rem; /* Reduce padding */
+    padding: 0.5rem;
   }
 
   .searchInput {
-    font-size: 0.9rem; /* Adjust font size */
+    font-size: 0.9rem;
   }
 
   .searchButton {
-    padding: 8px 15px; /* Adjust padding */
+    padding: 8px 15px;
     font-size: 0.8rem;
   }
 
   .icon {
-    font-size: 1.2rem; /* Reduce icon size */
+    font-size: 1.2rem;
   }
 
   .wishlistBadge,
   .cartBadge {
-    font-size: 12px; /* Adjust badge size */
+    font-size: 12px;
     top: -5px;
     right: -5px;
   }

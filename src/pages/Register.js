@@ -31,7 +31,7 @@ const Register = () => {
     } catch (err) {
       // Handle different error responses
       if (err.response && err.response.data.msg) {
-        setError(err.response.data.msg); // Display the error message from the server
+        setError(err.response.data.msg); // Display the error message 
       } else {
         setError("Error during registration. Please try again.");
       }

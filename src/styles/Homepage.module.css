@@ -16,9 +16,9 @@
 }
 
 .slideshowcontainer {
-  max-width: 1200px; /* Set maximum width for the slideshow */
+  max-width: 1200px;
 
-  margin: 0 auto; /* Center the container */
+  margin: 0 auto;
   padding: 1rem;
   overflow: hidden;
 }

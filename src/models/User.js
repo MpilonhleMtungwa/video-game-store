@@ -1,4 +1,3 @@
-// models/User.js
 const mongoose = require("mongoose");
 
 // User schema model mongodb database

@@ -37,8 +37,6 @@ export const fetchGameDetails = async (category = "") => {
       },
     });
 
-    console.log("RAWG API Full Response:", response); // Logs full response object
-
     // Return the results directly
     return response.data.results;
   } catch (error) {

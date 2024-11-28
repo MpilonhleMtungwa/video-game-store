@@ -57,3 +57,46 @@
 .actions button:last-child:hover {
   background: #a71d2a;
 }
+
+@media (max-width: 768px) {
+  .wishlistContainer {
+    padding: 10px;
+  }
+
+  .itemImage {
+    width: 80px;
+    height: 80px;
+    margin-right: 15px;
+  }
+
+  .wishlistItem {
+    padding: 8px;
+  }
+
+  .actions button {
+    flex: 1 1 45%;
+    margin: 10px;
+  }
+}
+
+@media (max-width: 480px) {
+  .itemImage {
+    width: 60px;
+    height: 60px;
+    margin-right: 10px;
+  }
+
+  .wishlistItem {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+
+  .itemDetails {
+    margin-bottom: 10px;
+  }
+
+  .actions button {
+    flex: 1 1 100%;
+    margin: 5px 0;
+  }
+}

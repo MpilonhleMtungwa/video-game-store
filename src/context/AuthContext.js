@@ -7,7 +7,7 @@ export const AuthProvider = ({ children }) => {
   const [isAuthenticated, setIsAuthenticated] = useState(false);
   const [loading, setLoading] = useState(true); // Tracks token verification status
 
-  // Verify the token on mount
+  // Verify the token
   useEffect(() => {
     const verifyToken = async () => {
       const token = localStorage.getItem("authToken");
@@ -53,7 +53,7 @@ export const AuthProvider = ({ children }) => {
 
   return (
     <AuthContext.Provider value={{ isAuthenticated, login, logout, loading }}>
-      {!loading && children} {/* Render children only after loading */}
+      {!loading && children}
     </AuthContext.Provider>
   );
 };

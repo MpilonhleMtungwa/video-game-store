@@ -1,6 +1,6 @@
 const express = require("express");
 const User = require("../models/User");
-const authMiddleware = require("../middleware/authMiddlewear"); // Add your auth middleware for authentication
+const authMiddleware = require("../middleware/authMiddlewear");
 const router = express.Router();
 
 // Get the user's wishlist
@@ -27,7 +27,7 @@ router.get("/wishlist", authMiddleware, async (req, res) => {
 router.post("/wishlist", authMiddleware, async (req, res) => {
   try {
     const { game } = req.body; // Extract the game object from the request body
-    const userId = req.user.id; // Assuming `req.user.id` comes from a logged-in user (authenticated)
+    const userId = req.user.id;
 
     // Find the user and add the game to their wishlist
     const user = await User.findById(userId);

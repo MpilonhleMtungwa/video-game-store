@@ -106,7 +106,7 @@ const Slideshow = ({ games = [] }) => {
   );
 };
 
-// Sample custom arrows for next and previous buttons
+// Arrows for next and previous buttons
 const SampleNextArrow = ({ onClick }) => {
   return (
     <div className={styles.nextArrow} onClick={onClick}>

@@ -79,7 +79,7 @@ h2 {
 }
 
 .registerLink a {
-  color: #e74c3c;
+  color: #180374;
   text-decoration: none;
 }
 
@@ -102,4 +102,49 @@ footer {
 
 .socialIcons a:hover {
   text-decoration: underline;
+}
+
+@media (max-width: 768px) {
+  .formWrapper {
+    padding: 15px;
+    max-width: 90%;
+  }
+
+  h2 {
+    font-size: 1.2rem;
+    text-align: center;
+  }
+
+  .formGroup input {
+    padding: 8px;
+  }
+
+  .options {
+    flex-direction: column;
+    gap: 10px;
+  }
+
+  .loginBtn {
+    font-size: 0.9rem;
+  }
+}
+
+@media (max-width: 480px) {
+  .loginImage {
+    width: 120px;
+    margin-bottom: 15px;
+  }
+
+  .formGroup input {
+    padding: 7px;
+  }
+
+  h2 {
+    font-size: 1rem;
+  }
+
+  footer {
+    text-align: center;
+    font-size: 0.7rem;
+  }
 }

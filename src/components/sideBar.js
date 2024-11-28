@@ -20,7 +20,7 @@ import {
 import { CgCardSpades } from "react-icons/cg";
 import styles from "../styles/sidebar.module.css";
 
-const Sidebar = ({ onPlatformSelect, onGenreSelect, onLoadAll }) => {
+const Sidebar = () => {
   const navigate = useNavigate();
   const [isCollapsed, setIsCollapsed] = useState(false);
 
@@ -123,83 +123,3 @@ const Sidebar = ({ onPlatformSelect, onGenreSelect, onLoadAll }) => {
 };
 
 export default Sidebar;
-/*
-import { FaWindows, FaXbox, FaPlaystation } from "react-icons/fa";
-import { SiApplearcade } from "react-icons/si";
-import { PiStrategyBold } from "react-icons/pi";
-import { MdFamilyRestroom } from "react-icons/md";
-import {
-  GiPuzzle,
-  GiPistolGun,
-  GiRaceCar,
-  GiSwordman,
-  GiBoxingGlove,
-  GiEmptyChessboard,
-  GiLaddersPlatform,
-  GiSoccerBall,
-} from "react-icons/gi"; // Genre icons from react-icons
-import { CgCardSpades } from "react-icons/cg";
-import styles from "../styles/sidebar.module.css";
-
-const Sidebar = ({ onPlatformSelect, onGenreSelect, onLoadAll }) => {
-  const [isCollapsed, setIsCollapsed] = useState(false);
-
-  const toggleSidebar = () => {
-    setIsCollapsed(!isCollapsed);
-  };
-
-  return (
-    <div className={`${styles.sidebar} ${isCollapsed ? styles.collapsed : ""}`}>
-      <button className={styles.toggleButton} onClick={toggleSidebar}>
-        {isCollapsed ? ">" : "<"}
-      </button>
-
-      {!isCollapsed && (
-        <>
-          <div className={styles.section}>
-            <h3>Platform</h3>
-            <button onClick={() => onPlatformSelect("windows")}>Windows</button>
-            <button onClick={() => onPlatformSelect("xbox")}>Xbox</button>
-            <button onClick={() => onPlatformSelect("playstation")}>
-              PlayStation
-            </button>
-          </div>
-
-          <div className={styles.section}>
-            <h3>Genre</h3>
-            <button onClick={() => onGenreSelect("action")}>Action</button>
-            <button onClick={() => onGenreSelect("adventure")}>
-              Adventure
-            </button>
-            <button onClick={() => onGenreSelect("strategy")}>Strategy</button>
-            <button onClick={() => onGenreSelect("rpg")}>RPG</button>
-            <button onClick={() => onGenreSelect("shooter")}>Shooter</button>
-            <button onClick={() => onGenreSelect("puzzle")}>Puzzle</button>
-            <button onClick={() => onGenreSelect("sports")}>Sports</button>
-            <button onClick={() => onGenreSelect("simulation")}>
-              Simulation
-            </button>
-            <button onClick={() => onGenreSelect("family")}>Family</button>
-            <button onClick={() => onGenreSelect("board_games")}>
-              Board Games
-            </button>
-            <button onClick={() => onGenreSelect("card")}>Card Games</button>
-            <button onClick={() => onGenreSelect("platformer")}>
-              Platformer
-            </button>
-            <button onClick={() => onGenreSelect("fighting")}>Fighting</button>
-            <button onClick={() => onGenreSelect("arcade")}>Arcade</button>
-          </div>
-
-          <div className={styles.section}>
-            <h3>All Games</h3>
-            <button onClick={onLoadAll}>Load All Games</button>
-          </div>
-        </>
-      )}
-    </div>
-  );
-};
-
-export default Sidebar;
-*/

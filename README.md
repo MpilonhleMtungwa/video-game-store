@@ -106,8 +106,6 @@ Mpilonhle Mtungwa<br>
 
 ## Screenshots
 
-Include screenshots here if possible! For example:
-
 ### Homepage with slideshow and product cards
 
 ![HomePage](./src/assets/home%20page.PNG)

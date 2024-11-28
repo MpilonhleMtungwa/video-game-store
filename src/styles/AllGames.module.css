@@ -17,7 +17,7 @@
   display: flex;
 }
 
-/* Responsive breakpoints */
+/* Responsive */
 @media (max-width: 1200px) {
   .productListView {
     grid-template-columns: repeat(3, 1fr); /* 3 cards for medium screens */

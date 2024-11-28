@@ -7,7 +7,6 @@ import styles from "../styles/Wishlist.module.css";
 import NavBar from "../components/NavBar";
 import { useNavigate, Navigate } from "react-router-dom";
 import { useLocation } from "react-router-dom";
-import Sidebar from "../components/sideBar";
 
 const Wishlist = () => {
   const { isAuthenticated } = useAuth();
@@ -63,7 +62,6 @@ const Wishlist = () => {
         }
       );
 
-      console.log("Updated Wishlist Response:", response.data);
       setWishlist(response.data); // Update the wishlist after removing item
     } catch (err) {
       console.error(
