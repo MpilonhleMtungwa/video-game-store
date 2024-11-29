@@ -108,21 +108,21 @@ Mpilonhle Mtungwa<br>
 
 ### Homepage with slideshow and product cards
 
-![HomePage](../Frontend/src/assets/home%20page.PNG)
+![HomePage](./src/assets/homePage.PNG)
 <br>
-![ProductCards](../Frontend/src/assets/Game%20Cards.PNG)
+![ProductCards](./src/assets/GameCards.PNG)
 
 ### Product detail page with media and overview
 
-![Product Detail Page](../Frontend/src/assets/Product%20Detail%20page.PNG)
+![Product Detail Page](./src/assets/ProductDetailPage.PNG)
 
 ### Wishlist
 
-![WishList](../Frontend/src/assets/wishlist%20page.PNG)
+![WishList](./src/assets/wishlistPage.PNG)
 
 ### Cart
 
-![cart](../Frontend/src/assets/Cart%20game%20Page.PNG)
+![cart](./src/assets/CartGamePage.PNG)
 
 ## License
 
