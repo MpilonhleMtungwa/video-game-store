@@ -25,7 +25,7 @@ const Wishlist = () => {
         try {
           const token = localStorage.getItem("authToken"); // Retrieve token from localStorage
           const response = await axios.get(
-            "http://localhost:5000/api/wishlist",
+            "https://video-game-store.onrender.com/api/wishlist",
             {
               headers: {
                 Authorization: `Bearer ${token}`, // Send the token in the request header
@@ -54,7 +54,7 @@ const Wishlist = () => {
       console.log("Game ID to remove:", gameId);
 
       const response = await axios.delete(
-        `http://localhost:5000/api/wishlist/${gameId}`,
+        `https://video-game-store.onrender.com/api/wishlist/${gameId}`,
         {
           headers: {
             Authorization: `Bearer ${token}`, // Send the token in the request header

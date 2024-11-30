@@ -14,7 +14,7 @@ export const AuthProvider = ({ children }) => {
       if (token) {
         try {
           const response = await axios.post(
-            "http://localhost:5000/auth/verify-token",
+            "https://video-game-store.onrender.com/auth/verify-token",
             {
               token,
             }

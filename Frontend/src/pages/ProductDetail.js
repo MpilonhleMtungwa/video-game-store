@@ -117,7 +117,7 @@ const ProductDetail = () => {
 
     try {
       const response = await axios.post(
-        "http://localhost:5000/api/wishlist",
+        "https://video-game-store.onrender.com/api/wishlist",
         { game: wishlistItem },
         {
           headers: {
@@ -134,8 +134,6 @@ const ProductDetail = () => {
       alert("Failed to add to wishlist");
     }
   };
-
-  
 
   const handleNextSlide = () => {
     setCurrentSlide((prev) => (prev + 1) % mediaItems.length);

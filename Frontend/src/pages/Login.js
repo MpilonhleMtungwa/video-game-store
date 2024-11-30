@@ -18,10 +18,13 @@ const LoginForm = () => {
     setIsLoading(true);
     setErrorMessage(""); // Clear any previous error messages
     try {
-      const response = await axios.post("http://localhost:5000/auth/login", {
-        email,
-        password,
-      });
+      const response = await axios.post(
+        "https://video-game-store.onrender.com/auth/login",
+        {
+          email,
+          password,
+        }
+      );
 
       if (response.status === 200 && response.data.token) {
         const token = response.data.token;

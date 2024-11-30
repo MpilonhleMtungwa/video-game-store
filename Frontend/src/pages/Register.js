@@ -14,7 +14,7 @@ const Register = () => {
     e.preventDefault();
     try {
       // Sending POST request to register the user
-      await axios.post("http://localhost:5000/auth/register", {
+      await axios.post("https://video-game-store.onrender.com/auth/register", {
         name,
         email,
         password,
@@ -31,7 +31,7 @@ const Register = () => {
     } catch (err) {
       // Handle different error responses
       if (err.response && err.response.data.msg) {
-        setError(err.response.data.msg); // Display the error message 
+        setError(err.response.data.msg); // Display the error message
       } else {
         setError("Error during registration. Please try again.");
       }
