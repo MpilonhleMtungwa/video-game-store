@@ -1,5 +1,4 @@
 .cardContainer {
-  background-color: #1e1e1e;
   border-radius: 8px;
   padding: 16px;
   width: 200px;
@@ -68,15 +67,15 @@
 
 @media (max-width: 768px) {
   .cardContainer {
-    max-width: 150px; 
+    max-width: 150px;
   }
 
   .imageContainer {
-    height: 150px; 
+    height: 150px;
   }
 
   .title {
-    font-size: 1em; 
+    font-size: 1em;
   }
 
   .priceSection {
@@ -90,16 +89,16 @@
 
 @media (max-width: 480px) {
   .cardContainer {
-    max-width: 100%; 
-    padding: 12px; 
+    max-width: 100%;
+    padding: 12px;
   }
 
   .imageContainer {
-    height: 120px; 
+    height: 120px;
   }
 
   .title {
-    font-size: 0.9em; 
+    font-size: 0.9em;
   }
 
   .price {
