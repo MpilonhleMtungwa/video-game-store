@@ -1,21 +1,13 @@
 .sidebar {
-  position: fixed; /* Ensures the sidebar stays visible */
-  top: 0;
-  left: 0;
-  height: 100vh; /* Full viewport height */
-  z-index: 1000; /* Makes sure it appears above other elements */
-  transition: transform 0.3s;
+  width: 250px;
   background-color: #1a1a1a;
-  color: white;
+  color: #ffffff;
+  padding: 20px;
+  transition: width 0.3s;
 }
 
-.sidebar.collapsed {
-  transform: translateX(-100%); /* Moves the sidebar offscreen */
-  width: 0;
-}
-
-.sidebar.open {
-  transform: translateX(0); /* Slides it back onscreen */
+.collapsed {
+  width: 50px;
 }
 
 .toggleButton {
@@ -72,37 +64,46 @@
 /* Responsive adjustments */
 @media (max-width: 768px) {
   .sidebar {
-    width: 100%; /* Full width on small screens */
-    transform: translateX(-100%); /* Hidden by default */
-    position: fixed;
-    z-index: 1000;
-  }
-
-  .sidebar.open {
-    transform: translateX(0); /* Slide in when open */
+    width: 200px;
+    padding: 15px;
   }
 
   .collapsed {
-    width: 100%; /* Collapsed state takes up full width for mobile */
+    width: 40px;
   }
 
-  .toggleButton {
-    position: fixed;
-    top: 10px;
-    left: 10px;
-  }
-}
-
-@media (max-width: 480px) {
   .section h3 {
     font-size: 1em;
   }
 
   .sidebar-button {
+    padding: 8px;
+  }
+
+  .section button {
+    padding: 6px;
+  }
+}
+
+@media (max-width: 480px) {
+  .sidebar {
+    width: 150px;
+    padding: 10px;
+  }
+
+  .collapsed {
+    width: 30px;
+  }
+
+  .section h3 {
     font-size: 0.9em;
   }
 
-  .icon {
-    font-size: 1em;
+  .sidebar-button {
+    padding: 6px;
+  }
+
+  .section button {
+    padding: 4px;
   }
 }
