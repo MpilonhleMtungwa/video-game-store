@@ -24,30 +24,37 @@ const Sidebar = () => {
   const navigate = useNavigate();
   const [isCollapsed, setIsCollapsed] = useState(false);
 
+  const toggleSidebar = () => {
+    setIsCollapsed((prev) => !prev);
+  };
+
   const handleGenreClick = (genre) => {
     navigate(`/games/${genre}`);
+    toggleSidebar(); // Close sidebar on mobile
   };
 
   const handlePlatformClick = (platform) => {
     navigate(`/games/platform/${platform}`);
+    toggleSidebar(); // Close sidebar on mobile
   };
 
   const handleLoadAllGames = () => {
     navigate("/games/all");
-  };
-
-  const toggleSidebar = () => {
-    setIsCollapsed(!isCollapsed);
+    toggleSidebar(); // Close sidebar on mobile
   };
 
   return (
-    <div className={`${styles.sidebar} ${isCollapsed ? styles.collapsed : ""}`}>
+    <div
+      className={`${styles.sidebar} ${
+        isCollapsed ? styles.collapsed : styles.open
+      }`}
+    >
       <button className={styles.toggleButton} onClick={toggleSidebar}>
-        {isCollapsed ? ">" : "<"}
+        {isCollapsed ? "☰" : "X"}
       </button>
 
       {!isCollapsed && (
-        <>
+        <div>
           <div className={styles.section}>
             <h3>Platform</h3>
             <button onClick={() => handlePlatformClick("windows")}>
@@ -116,7 +123,7 @@ const Sidebar = () => {
               <GiConsoleController className={styles.icon} /> Load All Games
             </button>
           </div>
-        </>
+        </div>
       )}
     </div>
   );

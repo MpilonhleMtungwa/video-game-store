@@ -75,7 +75,7 @@
   }
 
   .collapsed {
-    width: 100%;
+    width: 100%; /* Collapsed state takes up full width for mobile */
   }
 
   .toggleButton {
