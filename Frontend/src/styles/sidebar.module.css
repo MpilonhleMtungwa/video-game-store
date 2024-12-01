@@ -1,13 +1,21 @@
 .sidebar {
-  width: 250px;
+  position: fixed; /* Ensures the sidebar stays visible */
+  top: 0;
+  left: 0;
+  height: 100vh; /* Full viewport height */
+  z-index: 1000; /* Makes sure it appears above other elements */
+  transition: transform 0.3s;
   background-color: #1a1a1a;
-  color: #ffffff;
-  padding: 20px;
-  transition: width 0.3s;
+  color: white;
 }
 
-.collapsed {
-  width: 50px;
+.sidebar.collapsed {
+  transform: translateX(-100%); /* Moves the sidebar offscreen */
+  width: 0;
+}
+
+.sidebar.open {
+  transform: translateX(0); /* Slides it back onscreen */
 }
 
 .toggleButton {
@@ -79,9 +87,10 @@
   }
 
   .toggleButton {
-    position: absolute;
+    position: fixed;
     top: 10px;
     left: 10px;
+    z-index: 1100;
   }
 }
 
