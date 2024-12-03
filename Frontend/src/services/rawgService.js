@@ -4,20 +4,30 @@ const RAWG_API_BASE_URL = "https://api.rawg.io/api/games";
 
 export const fetchGameDetails = async (category = "") => {
   try {
-    // Get today's date and calculate the date 30 days ago
-    const today = new Date().toISOString().split("T")[0]; // Format: YYYY-MM-DD
-    const thirtyDaysAgo = new Date();
-    thirtyDaysAgo.setDate(thirtyDaysAgo.getDate() - 7);
-    const startDate = thirtyDaysAgo.toISOString().split("T")[0]; // Format: YYYY-MM-DD
+    // Get today's date
+    const today = new Date();
+    const todayFormatted = today.toISOString().split("T")[0]; // Format: YYYY-MM-DD
 
-    // Configure ordering for "most popular" and "recently updated"
+    // Calculate date ranges for different categories
+    const sevenDaysLater = new Date();
+    sevenDaysLater.setDate(today.getDate() + 7);
+    const fourteenDaysLater = new Date();
+    fourteenDaysLater.setDate(today.getDate() + 14);
+
+    const sevenDaysLaterFormatted = sevenDaysLater.toISOString().split("T")[0];
+    const fourteenDaysLaterFormatted = fourteenDaysLater
+      .toISOString()
+      .split("T")[0];
+
     let ordering;
     let dateFilter = undefined;
+
     if (category === "most_popular") {
       ordering = "-metacritic"; // Sort by Metacritic score
     } else if (category === "recently_updated") {
       ordering = "-updated"; // Sort by most recently updated
-      dateFilter = `${startDate},${today}`; // Filter for games updated in the last 30 days
+      // Adjust date filter for upcoming games
+      dateFilter = `${todayFormatted},${fourteenDaysLaterFormatted}`; // Next 14 days
     } else {
       ordering = ""; // For genre categories
     }
@@ -32,7 +42,7 @@ export const fetchGameDetails = async (category = "") => {
             : category,
         ordering: ordering || undefined,
         page_size: 4,
-        dates: dateFilter || undefined, // Include the date range for recently updated
+        dates: dateFilter || undefined, // Include the date range
         esrb_rating: "everyone,teen,mature", // Exclude adult games
       },
     });

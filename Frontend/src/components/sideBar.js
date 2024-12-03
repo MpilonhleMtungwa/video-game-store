@@ -43,7 +43,7 @@ const Sidebar = () => {
   return (
     <div className={`${styles.sidebar} ${isCollapsed ? styles.collapsed : ""}`}>
       <button className={styles.toggleButton} onClick={toggleSidebar}>
-        {isCollapsed ? ">" : "<"}
+        {isCollapsed ? "☰" : "X"}
       </button>
 
       {!isCollapsed && (
